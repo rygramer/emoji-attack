@@ -1,0 +1,31 @@
+.foodItem {
+  position: absolute;
+  transform: translateX(-50%);
+  user-select: none;
+  pointer-events: none;
+  animation: spin 2s linear infinite;
+}
+
+.healthy {
+  filter: drop-shadow(0 0 8px rgba(0, 255, 0, 0.4));
+}
+
+.unhealthy {
+  filter: drop-shadow(0 0 8px rgba(255, 0, 0, 0.4));
+}
+
+@keyframes spin {
+  from {
+    transform: translateX(-50%) rotate(0deg);
+  }
+  to {
+    transform: translateX(-50%) rotate(360deg);
+  }
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .foodItem {
+    font-size: 35px;
+  }
+}

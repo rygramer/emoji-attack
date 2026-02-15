@@ -1,0 +1,201 @@
+.indicator {
+  position: fixed;
+  top: 80px;
+  right: 20px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 15px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  z-index: 200;
+  min-width: 200px;
+  max-width: 280px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  transition: transform 0.3s ease;
+}
+
+/* Only apply slide-in animation on first mount */
+.indicator.slideIn {
+  animation: slideInKeyframes 0.5s ease-out;
+}
+
+@keyframes slideInKeyframes {
+  from {
+    transform: translateX(120%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Subtle pulse when theme changes */
+.indicator.transitioning {
+  animation: pulse 0.5s ease-in-out;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  cursor: pointer;
+  border-radius: 15px 15px 0 0;
+  transition: background 0.2s;
+}
+
+.header:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.themeTitle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+}
+
+.themeEmoji {
+  font-size: 24px;
+  line-height: 1;
+}
+
+.themeName {
+  font-size: 16px;
+  font-weight: 700;
+  color: #333;
+}
+
+.toggleButton {
+  background: none;
+  border: none;
+  font-size: 14px;
+  color: #666;
+  cursor: pointer;
+  padding: 4px;
+  line-height: 1;
+  transition: transform 0.2s;
+}
+
+.toggleButton:hover {
+  transform: scale(1.2);
+}
+
+.content {
+  padding: 0 16px 12px 16px;
+  animation: expandContent 0.3s ease-out;
+}
+
+@keyframes expandContent {
+  from {
+    opacity: 0;
+    max-height: 0;
+  }
+  to {
+    opacity: 1;
+    max-height: 500px;
+  }
+}
+
+.section {
+  margin-top: 12px;
+}
+
+.section:first-child {
+  margin-top: 0;
+}
+
+.sectionTitle {
+  font-size: 12px;
+  font-weight: 700;
+  color: #666;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.itemsList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(0, 0, 0, 0.05);
+  padding: 6px 10px;
+  border-radius: 10px;
+  transition: transform 0.2s, background 0.2s;
+}
+
+.item:hover {
+  transform: translateY(-2px);
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.itemEmoji {
+  font-size: 18px;
+  line-height: 1;
+}
+
+.itemPoints {
+  font-size: 13px;
+  font-weight: 700;
+  color: #22c55e;
+}
+
+.itemLives {
+  font-size: 13px;
+  font-weight: 700;
+  color: #ef4444;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .indicator {
+    top: 60px;
+    right: 10px;
+    left: 10px;
+    max-width: none;
+    min-width: auto;
+  }
+
+  .header {
+    padding: 10px 12px;
+  }
+
+  .themeEmoji {
+    font-size: 20px;
+  }
+
+  .themeName {
+    font-size: 14px;
+  }
+
+  .content {
+    padding: 0 12px 10px 12px;
+  }
+
+  .itemEmoji {
+    font-size: 16px;
+  }
+
+  .itemPoints,
+  .itemLives {
+    font-size: 12px;
+  }
+
+  .item {
+    padding: 5px 8px;
+  }
+}

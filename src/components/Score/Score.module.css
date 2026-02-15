@@ -1,0 +1,72 @@
+.scoreContainer {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 30px;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 12px 24px;
+  border-radius: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 100;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+}
+
+.scoreItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.label {
+  font-weight: 600;
+  color: #666;
+  font-size: 16px;
+}
+
+.value {
+  font-weight: 700;
+  color: #333;
+  font-size: 20px;
+  min-width: 40px;
+  text-align: right;
+}
+
+.hearts {
+  font-size: 20px;
+  line-height: 1;
+  white-space: nowrap;
+  display: inline-flex;
+  gap: 2px;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .scoreContainer {
+    gap: 12px;
+    padding: 8px 12px;
+    top: 10px;
+    width: auto;
+    max-width: 95vw;
+  }
+
+  .scoreItem {
+    gap: 6px;
+  }
+
+  .label {
+    font-size: 13px;
+  }
+
+  .value {
+    font-size: 16px;
+    min-width: 25px;
+  }
+
+  .hearts {
+    font-size: 16px;
+    gap: 1px;
+  }
+}
