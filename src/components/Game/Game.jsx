@@ -10,6 +10,7 @@ import ScorePopup from "../ScorePopup/ScorePopup";
 import HolidayIndicator from "../HolidayIndicator/HolidayIndicator";
 import ThemeTransition from "../ThemeTransition/ThemeTransition";
 import ThemeDecorations from "../ThemeDecorations/ThemeDecorations";
+import MenuDecorations from "../MenuDecorations/MenuDecorations";
 import { checkCollision } from "../../utils/collisionDetection";
 import {
   shouldSpawnFood,
@@ -36,6 +37,7 @@ export default function Game() {
   const [mobileHintDismissed, setMobileHintDismissed] = useState(false);
   const [mobileHintExiting, setMobileHintExiting] = useState(false);
   const mobileHintTapsRef = useRef({ left: false, right: false });
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
 
   // Holiday theme system
   const {
@@ -52,6 +54,12 @@ export default function Game() {
   const scoreRef = useRef(0);
   const livesRef = useRef(GAME_CONFIG.STARTING_LIVES);
   const previousThemeRef = useRef(currentThemeKey);
+
+  // Detect touch device on mount
+  useEffect(() => {
+    const touchDevice = window.matchMedia("(hover: none) and (pointer: coarse)").matches;
+    setIsTouchDevice(touchDevice);
+  }, []);
 
   // Start game
   const startGame = useCallback(() => {
@@ -217,6 +225,25 @@ export default function Game() {
 
       if (gameState !== "playing" && gameState !== "paused") return;
 
+      // Dismiss hint on first key press for non-touch devices
+      if (
+        gameState === "playing" &&
+        !isTouchDevice &&
+        !mobileHintDismissed &&
+        !mobileHintExiting &&
+        (e.key === "ArrowLeft" ||
+          e.key === "ArrowRight" ||
+          e.key === "a" ||
+          e.key === "A" ||
+          e.key === "d" ||
+          e.key === "D")
+      ) {
+        setMobileHintExiting(true);
+        setTimeout(() => {
+          setMobileHintDismissed(true);
+        }, 300);
+      }
+
       switch (e.key) {
         case "ArrowLeft":
         case "a":
@@ -254,7 +281,7 @@ export default function Game() {
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [gameState, startGame]);
+  }, [gameState, startGame, isTouchDevice, mobileHintDismissed, mobileHintExiting]);
 
   // Touch/Mouse controls for mobile
   useEffect(() => {
@@ -273,8 +300,16 @@ export default function Game() {
       const x = clientX - rect.left;
       const percentage = (x / rect.width) * 100;
 
-      // Track left/right taps for mobile hint dismissal
-      if (!mobileHintDismissed) {
+      // Dismiss hint on first movement for non-touch devices
+      if (!isTouchDevice && !mobileHintDismissed && !mobileHintExiting && e.type === "mousemove") {
+        setMobileHintExiting(true);
+        setTimeout(() => {
+          setMobileHintDismissed(true);
+        }, 300);
+      }
+
+      // Track left/right taps for mobile hint dismissal (touch devices only)
+      if (isTouchDevice && !mobileHintDismissed) {
         const midpoint = rect.width / 2;
         if (x < midpoint) {
           mobileHintTapsRef.current.left = true;
@@ -317,7 +352,7 @@ export default function Game() {
         container.removeEventListener("mousemove", handlePointerMove);
       }
     };
-  }, [gameState, mobileHintDismissed]);
+  }, [gameState, mobileHintDismissed, mobileHintExiting, isTouchDevice]);
 
   // Clear foods when theme changes during gameplay
   useEffect(() => {
@@ -372,6 +407,7 @@ export default function Game() {
       {/* Menu screen */}
       {gameState === "menu" && (
         <div className={styles.menuOverlay}>
+          <MenuDecorations />
           <div className={styles.menuContent}>
             <h1 className={styles.gameTitle}>👧🏼 Matilda's Emoji Attack 👧🏼</h1>
             <p className={styles.gameDescription}>
@@ -385,9 +421,6 @@ export default function Game() {
             <button className={styles.startButton} onClick={startGame}>
               Start Game
             </button>
-            <p className={styles.controls}>
-              Use Arrow Keys or A/D to move • Space to pause
-            </p>
           </div>
         </div>
       )}
@@ -408,7 +441,9 @@ export default function Game() {
             <div
               className={`${styles.mobileHint} ${mobileHintExiting ? styles.mobileHintExiting : ""}`}
             >
-              👈 Tap left/right to move 👉
+              {isTouchDevice
+                ? "👈 Tap left/right to move 👉"
+                : "Use your mouse or the ◀ ▶ keys to move"}
             </div>
           )}
           {foods.map((food) => (

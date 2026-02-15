@@ -27,9 +27,6 @@ export default function GameOver({ finalScore, highScore, onRestart }) {
           Play Again
         </button>
 
-        <p className={styles.hint}>
-          Use Arrow Keys or A/D to move • Space to pause
-        </p>
       </div>
     </div>
   );

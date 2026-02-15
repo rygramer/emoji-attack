@@ -1,0 +1,190 @@
+.menuDecorations {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.floatingEmoji {
+  position: absolute;
+  opacity: 0.15;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  filter: blur(0.5px);
+  transform: translateY(110vh);
+}
+
+/* Multiple animation variations for variety */
+.emoji0 {
+  animation-name: floatUp1;
+  animation-duration: 15s;
+}
+
+.emoji1 {
+  animation-name: floatUp2;
+  animation-duration: 18s;
+}
+
+.emoji2 {
+  animation-name: floatUp3;
+  animation-duration: 20s;
+}
+
+.emoji3 {
+  animation-name: floatUp4;
+  animation-duration: 16s;
+}
+
+.emoji4 {
+  animation-name: floatUp5;
+  animation-duration: 22s;
+}
+
+.emoji5 {
+  animation-name: floatUp6;
+  animation-duration: 14s;
+}
+
+.emoji6 {
+  animation-name: floatUp7;
+  animation-duration: 19s;
+}
+
+.emoji7 {
+  animation-name: floatUp8;
+  animation-duration: 17s;
+}
+
+/* Float animations with different patterns */
+@keyframes floatUp1 {
+  0% {
+    transform: translateY(110vh) translateX(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(50vh) translateX(30px) rotate(180deg);
+  }
+  100% {
+    transform: translateY(-100px) translateX(0) rotate(360deg);
+  }
+}
+
+@keyframes floatUp2 {
+  0% {
+    transform: translateY(110vh) translateX(0) rotate(0deg) scale(1);
+  }
+  50% {
+    transform: translateY(50vh) translateX(-40px) rotate(180deg) scale(1.2);
+  }
+  100% {
+    transform: translateY(-100px) translateX(0) rotate(360deg) scale(1);
+  }
+}
+
+@keyframes floatUp3 {
+  0% {
+    transform: translateY(110vh) translateX(0) rotate(0deg);
+  }
+  25% {
+    transform: translateY(75vh) translateX(50px) rotate(90deg);
+  }
+  50% {
+    transform: translateY(50vh) translateX(0) rotate(180deg);
+  }
+  75% {
+    transform: translateY(25vh) translateX(-50px) rotate(270deg);
+  }
+  100% {
+    transform: translateY(-100px) translateX(0) rotate(360deg);
+  }
+}
+
+@keyframes floatUp4 {
+  0% {
+    transform: translateY(110vh) translateX(0) scale(0.8);
+  }
+  50% {
+    transform: translateY(50vh) translateX(25px) scale(1.1);
+  }
+  100% {
+    transform: translateY(-100px) translateX(0) scale(0.9);
+  }
+}
+
+@keyframes floatUp5 {
+  0% {
+    transform: translateY(110vh) translateX(0) rotate(0deg);
+  }
+  33% {
+    transform: translateY(70vh) translateX(-35px) rotate(120deg);
+  }
+  66% {
+    transform: translateY(35vh) translateX(45px) rotate(240deg);
+  }
+  100% {
+    transform: translateY(-100px) translateX(0) rotate(360deg);
+  }
+}
+
+@keyframes floatUp6 {
+  0% {
+    transform: translateY(110vh) translateX(0) scale(1) rotate(0deg);
+  }
+  50% {
+    transform: translateY(50vh) translateX(40px) scale(1.15) rotate(180deg);
+  }
+  100% {
+    transform: translateY(-100px) translateX(0) scale(1) rotate(360deg);
+  }
+}
+
+@keyframes floatUp7 {
+  0% {
+    transform: translateY(110vh) translateX(0);
+  }
+  25% {
+    transform: translateY(75vh) translateX(-30px);
+  }
+  50% {
+    transform: translateY(50vh) translateX(35px);
+  }
+  75% {
+    transform: translateY(25vh) translateX(-25px);
+  }
+  100% {
+    transform: translateY(-100px) translateX(0);
+  }
+}
+
+@keyframes floatUp8 {
+  0% {
+    transform: translateY(110vh) translateX(0) rotate(0deg) scale(1);
+  }
+  25% {
+    transform: translateY(75vh) translateX(45px) rotate(90deg) scale(0.9);
+  }
+  50% {
+    transform: translateY(50vh) translateX(-30px) rotate(180deg) scale(1.2);
+  }
+  75% {
+    transform: translateY(25vh) translateX(40px) rotate(270deg) scale(0.95);
+  }
+  100% {
+    transform: translateY(-100px) translateX(0) rotate(360deg) scale(1);
+  }
+}
+
+/* Mobile - reduce complexity for performance */
+@media (max-width: 768px) {
+  .floatingEmoji {
+    opacity: 0.1;
+  }
+
+  /* Hide some emojis on mobile */
+  .floatingEmoji:nth-child(n+40) {
+    display: none;
+  }
+}
