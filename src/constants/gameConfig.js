@@ -25,7 +25,7 @@ export const GAME_CONFIG = {
 
   // Collision detection
   COLLISION_BUFFER: 10, // Pixels of overlap required
-  TEETH_BOTTOM_OFFSET: 20, // Pixels from bottom of screen
+  TEETH_BOTTOM_OFFSET: 60, // Pixels from bottom of screen (increased for mobile Safari/in-app browsers)
 
   // Visual
   GAME_MAX_WIDTH: 800, // Maximum game container width
