@@ -1,6 +1,6 @@
-# 🦷 Food Attack
+# 👧🏼 Emoji Attack
 
-> A fun and engaging browser-based arcade game where you control Matilda to emojis!
+> Help Matilda catch the right emojis as the theme changes!
 
 [![React](https://img.shields.io/badge/React-18-blue.svg)](https://reactjs.org/)
 [![Vite](https://img.shields.io/badge/Vite-5-646CFF.svg)](https://vitejs.dev/)
