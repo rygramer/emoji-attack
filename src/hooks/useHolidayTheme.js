@@ -23,7 +23,6 @@ export function useHolidayTheme(gameState) {
   const [shouldPauseSpawning, setShouldPauseSpawning] = useState(false);
   const themeTimerRef = useRef(null);
   const transitionTimerRef = useRef(null);
-  const spawnPauseTimerRef = useRef(null);
   const themeQueueRef = useRef(initialQueue);
   const queueIndexRef = useRef(1); // Start at 1 since we used index 0 for initial theme
 
@@ -36,7 +35,6 @@ export function useHolidayTheme(gameState) {
     if (queueIndexRef.current >= themeQueueRef.current.length) {
       themeQueueRef.current = shuffleArray(THEME_ORDER);
       queueIndexRef.current = 0;
-      console.log("Reshuffled theme queue:", themeQueueRef.current);
     }
 
     // Get next theme from queue
@@ -59,8 +57,6 @@ export function useHolidayTheme(gameState) {
     const [min, max] = currentTheme.durationRange;
     const duration = Math.floor(Math.random() * (max - min + 1)) + min;
 
-    console.log(`Next theme change in ${duration / 1000} seconds`);
-
     themeTimerRef.current = setTimeout(() => {
       changeTheme();
     }, duration);
@@ -73,23 +69,17 @@ export function useHolidayTheme(gameState) {
 
     // Switch to new theme first
     setCurrentThemeKey(nextTheme);
-    console.log("Theme changed to:", nextTheme);
 
     // Show transition overlay and pause spawning
     setIsTransitioning(true);
     setShouldPauseSpawning(true);
 
-    // After 1 second, resume spawning (while overlay is still visible)
-    spawnPauseTimerRef.current = setTimeout(() => {
-      setShouldPauseSpawning(false);
-      console.log("Resuming food spawning while overlay is visible");
-    }, 1000);
-
-    // After 5 seconds, hide overlay
+    // After 7 seconds, hide overlay and resume spawning
     transitionTimerRef.current = setTimeout(() => {
       setIsTransitioning(false);
+      setShouldPauseSpawning(false);
       scheduleThemeChange();
-    }, 5000);
+    }, 7000);
   }, [getNextTheme, scheduleThemeChange]);
 
   // Start theme timer when game starts (only on game state change)
@@ -107,16 +97,11 @@ export function useHolidayTheme(gameState) {
         clearTimeout(transitionTimerRef.current);
         transitionTimerRef.current = null;
       }
-      if (spawnPauseTimerRef.current) {
-        clearTimeout(spawnPauseTimerRef.current);
-        spawnPauseTimerRef.current = null;
-      }
     }
 
     return () => {
       if (themeTimerRef.current) clearTimeout(themeTimerRef.current);
       if (transitionTimerRef.current) clearTimeout(transitionTimerRef.current);
-      if (spawnPauseTimerRef.current) clearTimeout(spawnPauseTimerRef.current);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [gameState]); // Only depend on gameState to avoid rescheduling on theme changes
@@ -138,7 +123,6 @@ export function useHolidayTheme(gameState) {
     currentThemeKey,
     currentTheme,
     isTransitioning,
-    nextThemeKey: getNextTheme(),
     shouldPauseSpawning, // Separate state for spawn control
   };
 }

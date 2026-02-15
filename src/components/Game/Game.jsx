@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import styles from "./Game.module.css";
-import { useGameLoop } from "./useGameLoop";
+import { useGameLoop } from "../../hooks/useGameLoop";
 import { useHolidayTheme } from "../../hooks/useHolidayTheme";
 import Teeth from "../Teeth/Teeth";
 import FoodItem from "../FoodItem/FoodItem";
@@ -10,17 +10,13 @@ import ScorePopup from "../ScorePopup/ScorePopup";
 import HolidayIndicator from "../HolidayIndicator/HolidayIndicator";
 import ThemeTransition from "../ThemeTransition/ThemeTransition";
 import ThemeDecorations from "../ThemeDecorations/ThemeDecorations";
-import {
-  checkCollision,
-  isFoodNearTeeth,
-} from "../../utils/collisionDetection";
+import { checkCollision } from "../../utils/collisionDetection";
 import {
   shouldSpawnFood,
   createFood,
   calculateDifficulty,
 } from "../../utils/foodSpawner";
 import { GAME_CONFIG } from "../../constants/gameConfig";
-import { HOLIDAY_THEMES, THEME_ORDER } from "../../constants/holidayThemes";
 
 const STORAGE_KEY = "emoji-attack-high-score";
 
@@ -37,13 +33,15 @@ export default function Game() {
   const [foods, setFoods] = useState([]);
   const [scorePopups, setScorePopups] = useState([]);
   const [showDebug, setShowDebug] = useState(false);
+  const [mobileHintDismissed, setMobileHintDismissed] = useState(false);
+  const [mobileHintExiting, setMobileHintExiting] = useState(false);
+  const mobileHintTapsRef = useRef({ left: false, right: false });
 
   // Holiday theme system
   const {
     currentThemeKey,
     currentTheme,
     isTransitioning,
-    nextThemeKey,
     shouldPauseSpawning,
   } = useHolidayTheme(gameState);
 
@@ -75,21 +73,11 @@ export default function Game() {
 
   // Handle food caught
   const handleFoodCaught = useCallback((food) => {
-    console.log(
-      "handleFoodCaught CALLED with food:",
-      food.emoji,
-      "id:",
-      food.id,
-    );
-
     // Prevent double-counting the same food
     if (collectedFoodsRef.current.has(food.id)) {
-      console.log("DUPLICATE! Food already collected:", food.id);
       return;
     }
     collectedFoodsRef.current.add(food.id);
-
-    console.log("Food caught!", food.type, food.emoji, "Points:", food.points);
 
     // Create visual popup
     const popup = {
@@ -103,20 +91,16 @@ export default function Game() {
 
     // Handle healthy food - increase score
     if (food.type === "healthy") {
-      const oldScore = scoreRef.current;
-      const newScore = oldScore + food.points;
+      const newScore = scoreRef.current + food.points;
       scoreRef.current = newScore;
       setScore(newScore);
-      console.log("Score updated:", oldScore, "->", newScore);
     }
 
     // Handle unhealthy food - lose a life only (no score penalty)
     if (food.type === "unhealthy") {
-      const oldLives = livesRef.current;
-      const newLives = oldLives - 1;
+      const newLives = livesRef.current - 1;
       livesRef.current = newLives;
       setLives(newLives);
-      console.log("Lives decreased:", oldLives, "->", newLives);
 
       if (newLives <= 0) {
         setGameState("gameOver");
@@ -153,7 +137,7 @@ export default function Game() {
 
       // Update food positions and check collisions
       // Speed multiplier increases with difficulty (1.0 at start, +0.1 per difficulty level)
-      const speedMultiplier = 1 + difficulty * 0.3;
+      const speedMultiplier = 1 + difficulty * 0.1;
 
       setFoods((prevFoods) => {
         const updatedFoods = prevFoods
@@ -181,7 +165,6 @@ export default function Game() {
                 gameHeight,
               )
             ) {
-              console.log("COLLISION! Catching food:", food.emoji);
               try {
                 handleFoodCaught(food);
               } catch (error) {
@@ -202,16 +185,6 @@ export default function Game() {
         shouldSpawnFood(lastSpawnTimeRef.current, difficulty)
       ) {
         const newFood = createFood(currentThemeKey, difficulty);
-        console.log(
-          "New food spawned:",
-          newFood.emoji,
-          "at x:",
-          newFood.x,
-          "type:",
-          newFood.type,
-          "difficulty:",
-          difficulty,
-        );
         setFoods((prev) => [...prev, newFood]);
         lastSpawnTimeRef.current = Date.now();
       }
@@ -275,7 +248,6 @@ export default function Game() {
         case "B":
           e.preventDefault();
           setShowDebug((prev) => !prev);
-          console.log("Debug mode toggled");
           break;
       }
     };
@@ -300,6 +272,29 @@ export default function Game() {
 
       const x = clientX - rect.left;
       const percentage = (x / rect.width) * 100;
+
+      // Track left/right taps for mobile hint dismissal
+      if (!mobileHintDismissed) {
+        const midpoint = rect.width / 2;
+        if (x < midpoint) {
+          mobileHintTapsRef.current.left = true;
+        } else {
+          mobileHintTapsRef.current.right = true;
+        }
+
+        // Dismiss hint if both sides have been tapped
+        if (
+          mobileHintTapsRef.current.left &&
+          mobileHintTapsRef.current.right &&
+          !mobileHintExiting
+        ) {
+          setMobileHintExiting(true);
+          setTimeout(() => {
+            setMobileHintDismissed(true);
+          }, 300); // Match animation duration
+        }
+      }
+
       setTeethPosition(
         Math.max(
           GAME_CONFIG.MIN_TEETH_X,
@@ -322,7 +317,7 @@ export default function Game() {
         container.removeEventListener("mousemove", handlePointerMove);
       }
     };
-  }, [gameState]);
+  }, [gameState, mobileHintDismissed]);
 
   // Clear foods when theme changes during gameplay
   useEffect(() => {
@@ -330,13 +325,6 @@ export default function Game() {
       gameState === "playing" &&
       previousThemeRef.current !== currentThemeKey
     ) {
-      console.log(
-        "Theme changed from",
-        previousThemeRef.current,
-        "to",
-        currentThemeKey,
-        "- clearing old food items",
-      );
       setFoods([]);
       previousThemeRef.current = currentThemeKey;
     }
@@ -364,11 +352,15 @@ export default function Game() {
       {/* Holiday theme UI */}
       {gameState === "playing" && (
         <>
-          <HolidayIndicator
-            theme={currentTheme}
-            isTransitioning={isTransitioning}
-          />
-          <ThemeDecorations themeKey={currentThemeKey} />
+          {!isTransitioning && (
+            <HolidayIndicator
+              theme={currentTheme}
+              isTransitioning={isTransitioning}
+            />
+          )}
+          {!isTransitioning && (
+            <ThemeDecorations key={currentThemeKey} themeKey={currentThemeKey} />
+          )}
         </>
       )}
       <ThemeTransition
@@ -385,17 +377,6 @@ export default function Game() {
             <p className={styles.gameDescription}>
               Help Matilda catch the right emojis as the theme changes!
             </p>
-            <div className={styles.holidayShowcase}>
-              {THEME_ORDER.map((themeKey) => {
-                const theme = HOLIDAY_THEMES[themeKey];
-                return (
-                  <div key={themeKey} className={styles.holidayItem}>
-                    <span className={styles.holidayEmoji}>{theme.emoji}</span>
-                    <span className={styles.holidayName}>{theme.name}</span>
-                  </div>
-                );
-              })}
-            </div>
             <div className={styles.instructions}>
               <p>🎮 Themes change automatically during gameplay!</p>
               <p>✅ Catch the right items for points</p>
@@ -423,6 +404,13 @@ export default function Game() {
       {gameState !== "menu" && (
         <>
           <Teeth position={teethPosition} />
+          {gameState === "playing" && !mobileHintDismissed && (
+            <div
+              className={`${styles.mobileHint} ${mobileHintExiting ? styles.mobileHintExiting : ""}`}
+            >
+              👈 Tap left/right to move 👉
+            </div>
+          )}
           {foods.map((food) => (
             <FoodItem key={food.id} food={food} />
           ))}

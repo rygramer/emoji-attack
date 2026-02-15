@@ -17,6 +17,7 @@
   animation-timing-function: linear;
   animation-iteration-count: infinite;
   filter: blur(1px);
+  transform: translateY(110vh); /* Start off-screen at bottom */
 }
 
 /* Halloween decorations - floating side to side (upwards) */

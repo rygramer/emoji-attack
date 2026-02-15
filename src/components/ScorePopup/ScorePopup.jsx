@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import styles from "./ScorePopup.module.css";
 
 export default function ScorePopup({ x, y, points, type, id, onComplete }) {

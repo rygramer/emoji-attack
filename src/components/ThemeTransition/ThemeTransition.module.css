@@ -9,7 +9,7 @@
   align-items: center;
   justify-content: center;
   z-index: 1000;
-  animation: fadeInOut 5s ease-in-out;
+  animation: fadeInOut 7s ease-in-out;
   pointer-events: none;
 }
 
@@ -17,10 +17,10 @@
   0% {
     opacity: 0;
   }
-  10% {
+  3% {
     opacity: 1;
   }
-  90% {
+  86% {
     opacity: 1;
   }
   100% {
@@ -30,7 +30,7 @@
 
 .content {
   text-align: center;
-  animation: scaleIn 5s ease-out;
+  animation: scaleIn 7s ease-out;
   max-width: 600px;
   width: 90%;
 }
@@ -44,15 +44,17 @@
     transform: scale(0.5);
     opacity: 0;
   }
-  10% {
+  5% {
     transform: scale(1.1);
     opacity: 1;
   }
-  15% {
+  10% {
     transform: scale(1);
+    opacity: 1;
   }
-  85% {
+  95% {
     transform: scale(1);
+    opacity: 1;
   }
   100% {
     transform: scale(0.9);
@@ -64,7 +66,7 @@
   font-size: 120px;
   line-height: 1;
   margin-bottom: 20px;
-  animation: bounce 5s ease-out;
+  animation: bounce 7s ease-out;
 }
 
 @keyframes bounce {

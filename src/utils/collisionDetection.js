@@ -36,10 +36,3 @@ export function checkCollision(teeth, food, gameWidth, gameHeight) {
   );
 }
 
-/**
- * Check if food is near the teeth (optimization to reduce collision checks)
- */
-export function isFoodNearTeeth(food, gameHeight) {
-  const distanceFromBottom = gameHeight - food.y;
-  return distanceFromBottom < 150; // Only check when within 150px of bottom
-}
