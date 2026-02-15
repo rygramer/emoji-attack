@@ -180,7 +180,6 @@
 /* Touch device optimization */
 @media (hover: none) and (pointer: coarse) {
   .gameContainer {
-    cursor: none;
     touch-action: none;
   }
 
