@@ -1,7 +1,8 @@
 .gameContainer {
   position: relative;
   width: 100%;
-  height: 100vh;
+  height: 100vh; /* Fallback for older browsers */
+  height: 100dvh; /* Dynamic viewport height for Safari */
   overflow: hidden;
   background: linear-gradient(to bottom, #87ceeb 0%, #e0f6ff 100%);
   cursor: default;
