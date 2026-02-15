@@ -1,4 +1,4 @@
-import styles from './GameOver.module.css';
+import styles from "./GameOver.module.css";
 
 export default function GameOver({ finalScore, highScore, onRestart }) {
   const isNewHighScore = finalScore >= highScore && finalScore > 0;
@@ -9,9 +9,7 @@ export default function GameOver({ finalScore, highScore, onRestart }) {
         <h1 className={styles.title}>Game Over!</h1>
 
         {isNewHighScore && (
-          <div className={styles.newHighScore}>
-            🎉 New High Score! 🎉
-          </div>
+          <div className={styles.newHighScore}>🎉 New High Score! 🎉</div>
         )}
 
         <div className={styles.scores}>

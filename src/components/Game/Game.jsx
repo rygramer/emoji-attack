@@ -1,25 +1,32 @@
-import { useState, useEffect, useRef, useCallback } from 'react';
-import styles from './Game.module.css';
-import { useGameLoop } from './useGameLoop';
-import { useHolidayTheme } from '../../hooks/useHolidayTheme';
-import Teeth from '../Teeth/Teeth';
-import FoodItem from '../FoodItem/FoodItem';
-import Score from '../Score/Score';
-import GameOver from '../GameOver/GameOver';
-import ScorePopup from '../ScorePopup/ScorePopup';
-import HolidayIndicator from '../HolidayIndicator/HolidayIndicator';
-import ThemeTransition from '../ThemeTransition/ThemeTransition';
-import ThemeDecorations from '../ThemeDecorations/ThemeDecorations';
-import { checkCollision, isFoodNearTeeth } from '../../utils/collisionDetection';
-import { shouldSpawnFood, createFood, calculateDifficulty } from '../../utils/foodSpawner';
-import { GAME_CONFIG } from '../../constants/gameConfig';
-import { HOLIDAY_THEMES, THEME_ORDER } from '../../constants/holidayThemes';
+import { useState, useEffect, useRef, useCallback } from "react";
+import styles from "./Game.module.css";
+import { useGameLoop } from "./useGameLoop";
+import { useHolidayTheme } from "../../hooks/useHolidayTheme";
+import Teeth from "../Teeth/Teeth";
+import FoodItem from "../FoodItem/FoodItem";
+import Score from "../Score/Score";
+import GameOver from "../GameOver/GameOver";
+import ScorePopup from "../ScorePopup/ScorePopup";
+import HolidayIndicator from "../HolidayIndicator/HolidayIndicator";
+import ThemeTransition from "../ThemeTransition/ThemeTransition";
+import ThemeDecorations from "../ThemeDecorations/ThemeDecorations";
+import {
+  checkCollision,
+  isFoodNearTeeth,
+} from "../../utils/collisionDetection";
+import {
+  shouldSpawnFood,
+  createFood,
+  calculateDifficulty,
+} from "../../utils/foodSpawner";
+import { GAME_CONFIG } from "../../constants/gameConfig";
+import { HOLIDAY_THEMES, THEME_ORDER } from "../../constants/holidayThemes";
 
-const STORAGE_KEY = 'emoji-attack-high-score';
+const STORAGE_KEY = "emoji-attack-high-score";
 
 export default function Game() {
   // Game state
-  const [gameState, setGameState] = useState('menu'); // 'menu', 'playing', 'paused', 'gameOver'
+  const [gameState, setGameState] = useState("menu"); // 'menu', 'playing', 'paused', 'gameOver'
   const [score, setScore] = useState(0);
   const [lives, setLives] = useState(GAME_CONFIG.STARTING_LIVES);
   const [highScore, setHighScore] = useState(() => {
@@ -32,7 +39,13 @@ export default function Game() {
   const [showDebug, setShowDebug] = useState(false);
 
   // Holiday theme system
-  const { currentThemeKey, currentTheme, isTransitioning, nextThemeKey, shouldPauseSpawning } = useHolidayTheme(gameState);
+  const {
+    currentThemeKey,
+    currentTheme,
+    isTransitioning,
+    nextThemeKey,
+    shouldPauseSpawning,
+  } = useHolidayTheme(gameState);
 
   // Refs for game loop
   const lastSpawnTimeRef = useRef(Date.now());
@@ -44,7 +57,7 @@ export default function Game() {
 
   // Start game
   const startGame = useCallback(() => {
-    setGameState('playing');
+    setGameState("playing");
     setScore(0);
     setLives(GAME_CONFIG.STARTING_LIVES);
     setTeethPosition(50);
@@ -62,16 +75,21 @@ export default function Game() {
 
   // Handle food caught
   const handleFoodCaught = useCallback((food) => {
-    console.log('handleFoodCaught CALLED with food:', food.emoji, 'id:', food.id);
+    console.log(
+      "handleFoodCaught CALLED with food:",
+      food.emoji,
+      "id:",
+      food.id,
+    );
 
     // Prevent double-counting the same food
     if (collectedFoodsRef.current.has(food.id)) {
-      console.log('DUPLICATE! Food already collected:', food.id);
+      console.log("DUPLICATE! Food already collected:", food.id);
       return;
     }
     collectedFoodsRef.current.add(food.id);
 
-    console.log('Food caught!', food.type, food.emoji, 'Points:', food.points);
+    console.log("Food caught!", food.type, food.emoji, "Points:", food.points);
 
     // Create visual popup
     const popup = {
@@ -84,24 +102,24 @@ export default function Game() {
     setScorePopups((prev) => [...prev, popup]);
 
     // Handle healthy food - increase score
-    if (food.type === 'healthy') {
+    if (food.type === "healthy") {
       const oldScore = scoreRef.current;
       const newScore = oldScore + food.points;
       scoreRef.current = newScore;
       setScore(newScore);
-      console.log('Score updated:', oldScore, '->', newScore);
+      console.log("Score updated:", oldScore, "->", newScore);
     }
 
     // Handle unhealthy food - lose a life only (no score penalty)
-    if (food.type === 'unhealthy') {
+    if (food.type === "unhealthy") {
       const oldLives = livesRef.current;
       const newLives = oldLives - 1;
       livesRef.current = newLives;
       setLives(newLives);
-      console.log('Lives decreased:', oldLives, '->', newLives);
+      console.log("Lives decreased:", oldLives, "->", newLives);
 
       if (newLives <= 0) {
-        setGameState('gameOver');
+        setGameState("gameOver");
       }
     }
 
@@ -125,18 +143,28 @@ export default function Game() {
 
       // Debug: verify game loop is running
       if (showDebug) {
-        console.log('Game loop running - deltaTime:', deltaTime, 'foods count:', foods.length);
+        console.log(
+          "Game loop running - deltaTime:",
+          deltaTime,
+          "foods count:",
+          foods.length,
+        );
       }
 
       // Update food positions and check collisions
       // Speed multiplier increases with difficulty (1.0 at start, +0.1 per difficulty level)
-      const speedMultiplier = 1 + (difficulty * 0.3);
+      const speedMultiplier = 1 + difficulty * 0.3;
 
       setFoods((prevFoods) => {
         const updatedFoods = prevFoods
           .map((food) => ({
             ...food,
-            y: food.y + GAME_CONFIG.BASE_FOOD_SPEED * food.speed * speedMultiplier * deltaTime,
+            y:
+              food.y +
+              GAME_CONFIG.BASE_FOOD_SPEED *
+                food.speed *
+                speedMultiplier *
+                deltaTime,
           }))
           .filter((food) => {
             // Remove foods that are off-screen
@@ -145,12 +173,19 @@ export default function Game() {
             }
 
             // Check collision - always check, not just when near teeth
-            if (checkCollision({ position: teethPosition }, food, gameWidth, gameHeight)) {
-              console.log('COLLISION! Catching food:', food.emoji);
+            if (
+              checkCollision(
+                { position: teethPosition },
+                food,
+                gameWidth,
+                gameHeight,
+              )
+            ) {
+              console.log("COLLISION! Catching food:", food.emoji);
               try {
                 handleFoodCaught(food);
               } catch (error) {
-                console.error('ERROR in handleFoodCaught:', error);
+                console.error("ERROR in handleFoodCaught:", error);
               }
               return false;
             }
@@ -162,68 +197,97 @@ export default function Game() {
       });
 
       // Spawn new food (but not during theme transitions)
-      if (!shouldPauseSpawning && shouldSpawnFood(lastSpawnTimeRef.current, difficulty)) {
+      if (
+        !shouldPauseSpawning &&
+        shouldSpawnFood(lastSpawnTimeRef.current, difficulty)
+      ) {
         const newFood = createFood(currentThemeKey, difficulty);
-        console.log('New food spawned:', newFood.emoji, 'at x:', newFood.x, 'type:', newFood.type, 'difficulty:', difficulty);
+        console.log(
+          "New food spawned:",
+          newFood.emoji,
+          "at x:",
+          newFood.x,
+          "type:",
+          newFood.type,
+          "difficulty:",
+          difficulty,
+        );
         setFoods((prev) => [...prev, newFood]);
         lastSpawnTimeRef.current = Date.now();
       }
 
       // Debug: log food count
       if (showDebug) {
-        console.log('Active foods:', foods.length, 'Teeth pos:', teethPosition);
+        console.log("Active foods:", foods.length, "Teeth pos:", teethPosition);
       }
     },
-    [score, teethPosition, handleFoodCaught, showDebug, shouldPauseSpawning, currentThemeKey]
+    [
+      score,
+      teethPosition,
+      handleFoodCaught,
+      showDebug,
+      shouldPauseSpawning,
+      currentThemeKey,
+    ],
   );
 
   // Game loop
-  useGameLoop(gameLoopCallback, gameState === 'playing');
+  useGameLoop(gameLoopCallback, gameState === "playing");
 
   // Keyboard controls
   useEffect(() => {
     const handleKeyDown = (e) => {
-      if (gameState === 'menu') {
+      if (gameState === "menu") {
         startGame();
         return;
       }
 
-      if (gameState !== 'playing' && gameState !== 'paused') return;
+      if (gameState !== "playing" && gameState !== "paused") return;
 
       switch (e.key) {
-        case 'ArrowLeft':
-        case 'a':
-        case 'A':
+        case "ArrowLeft":
+        case "a":
+        case "A":
           e.preventDefault();
-          setTeethPosition((prev) => Math.max(GAME_CONFIG.MIN_TEETH_X, prev - GAME_CONFIG.TEETH_MOVE_SPEED));
+          setTeethPosition((prev) =>
+            Math.max(
+              GAME_CONFIG.MIN_TEETH_X,
+              prev - GAME_CONFIG.TEETH_MOVE_SPEED,
+            ),
+          );
           break;
-        case 'ArrowRight':
-        case 'd':
-        case 'D':
+        case "ArrowRight":
+        case "d":
+        case "D":
           e.preventDefault();
-          setTeethPosition((prev) => Math.min(GAME_CONFIG.MAX_TEETH_X, prev + GAME_CONFIG.TEETH_MOVE_SPEED));
+          setTeethPosition((prev) =>
+            Math.min(
+              GAME_CONFIG.MAX_TEETH_X,
+              prev + GAME_CONFIG.TEETH_MOVE_SPEED,
+            ),
+          );
           break;
-        case ' ':
+        case " ":
           e.preventDefault();
-          setGameState((prev) => (prev === 'playing' ? 'paused' : 'playing'));
+          setGameState((prev) => (prev === "playing" ? "paused" : "playing"));
           break;
-        case 'b':
-        case 'B':
+        case "b":
+        case "B":
           e.preventDefault();
           setShowDebug((prev) => !prev);
-          console.log('Debug mode toggled');
+          console.log("Debug mode toggled");
           break;
       }
     };
 
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
   }, [gameState, startGame]);
 
   // Touch/Mouse controls for mobile
   useEffect(() => {
     const handlePointerMove = (e) => {
-      if (gameState !== 'playing' || !gameContainerRef.current) return;
+      if (gameState !== "playing" || !gameContainerRef.current) return;
 
       const rect = gameContainerRef.current.getBoundingClientRect();
       let clientX;
@@ -236,27 +300,43 @@ export default function Game() {
 
       const x = clientX - rect.left;
       const percentage = (x / rect.width) * 100;
-      setTeethPosition(Math.max(GAME_CONFIG.MIN_TEETH_X, Math.min(GAME_CONFIG.MAX_TEETH_X, percentage)));
+      setTeethPosition(
+        Math.max(
+          GAME_CONFIG.MIN_TEETH_X,
+          Math.min(GAME_CONFIG.MAX_TEETH_X, percentage),
+        ),
+      );
     };
 
     const container = gameContainerRef.current;
     if (container) {
-      container.addEventListener('touchmove', handlePointerMove, { passive: false });
-      container.addEventListener('mousemove', handlePointerMove);
+      container.addEventListener("touchmove", handlePointerMove, {
+        passive: false,
+      });
+      container.addEventListener("mousemove", handlePointerMove);
     }
 
     return () => {
       if (container) {
-        container.removeEventListener('touchmove', handlePointerMove);
-        container.removeEventListener('mousemove', handlePointerMove);
+        container.removeEventListener("touchmove", handlePointerMove);
+        container.removeEventListener("mousemove", handlePointerMove);
       }
     };
   }, [gameState]);
 
   // Clear foods when theme changes during gameplay
   useEffect(() => {
-    if (gameState === 'playing' && previousThemeRef.current !== currentThemeKey) {
-      console.log('Theme changed from', previousThemeRef.current, 'to', currentThemeKey, '- clearing old food items');
+    if (
+      gameState === "playing" &&
+      previousThemeRef.current !== currentThemeKey
+    ) {
+      console.log(
+        "Theme changed from",
+        previousThemeRef.current,
+        "to",
+        currentThemeKey,
+        "- clearing old food items",
+      );
       setFoods([]);
       previousThemeRef.current = currentThemeKey;
     }
@@ -277,19 +357,28 @@ export default function Game() {
       style={{ background: currentTheme?.background }}
     >
       {/* Score display */}
-      {gameState !== 'menu' && <Score score={score} lives={lives} highScore={highScore} />}
+      {gameState !== "menu" && (
+        <Score score={score} lives={lives} highScore={highScore} />
+      )}
 
       {/* Holiday theme UI */}
-      {gameState === 'playing' && (
+      {gameState === "playing" && (
         <>
-          <HolidayIndicator theme={currentTheme} isTransitioning={isTransitioning} />
+          <HolidayIndicator
+            theme={currentTheme}
+            isTransitioning={isTransitioning}
+          />
           <ThemeDecorations themeKey={currentThemeKey} />
         </>
       )}
-      <ThemeTransition key={currentThemeKey} theme={currentTheme} isVisible={isTransitioning} />
+      <ThemeTransition
+        key={currentThemeKey}
+        theme={currentTheme}
+        isVisible={isTransitioning}
+      />
 
       {/* Menu screen */}
-      {gameState === 'menu' && (
+      {gameState === "menu" && (
         <div className={styles.menuOverlay}>
           <div className={styles.menuContent}>
             <h1 className={styles.gameTitle}>👧🏼 Matilda's Emoji Attack 👧🏼</h1>
@@ -323,7 +412,7 @@ export default function Game() {
       )}
 
       {/* Paused screen */}
-      {gameState === 'paused' && (
+      {gameState === "paused" && (
         <div className={styles.pausedOverlay}>
           <h2 className={styles.pausedText}>⏸️ Paused</h2>
           <p className={styles.pausedHint}>Press Space to continue</p>
@@ -331,7 +420,7 @@ export default function Game() {
       )}
 
       {/* Game elements */}
-      {gameState !== 'menu' && (
+      {gameState !== "menu" && (
         <>
           <Teeth position={teethPosition} />
           {foods.map((food) => (
@@ -352,8 +441,12 @@ export default function Game() {
       )}
 
       {/* Game Over screen */}
-      {gameState === 'gameOver' && (
-        <GameOver finalScore={score} highScore={highScore} onRestart={restartGame} />
+      {gameState === "gameOver" && (
+        <GameOver
+          finalScore={score}
+          highScore={highScore}
+          onRestart={restartGame}
+        />
       )}
     </div>
   );

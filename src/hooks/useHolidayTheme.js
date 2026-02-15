@@ -1,5 +1,5 @@
-import { useState, useEffect, useRef, useCallback } from 'react';
-import { HOLIDAY_THEMES, THEME_ORDER } from '../constants/holidayThemes';
+import { useState, useEffect, useRef, useCallback } from "react";
+import { HOLIDAY_THEMES, THEME_ORDER } from "../constants/holidayThemes";
 
 /**
  * Custom hook for managing holiday theme state and transitions
@@ -36,7 +36,7 @@ export function useHolidayTheme(gameState) {
     if (queueIndexRef.current >= themeQueueRef.current.length) {
       themeQueueRef.current = shuffleArray(THEME_ORDER);
       queueIndexRef.current = 0;
-      console.log('Reshuffled theme queue:', themeQueueRef.current);
+      console.log("Reshuffled theme queue:", themeQueueRef.current);
     }
 
     // Get next theme from queue
@@ -48,7 +48,7 @@ export function useHolidayTheme(gameState) {
 
   // Schedule next theme change
   const scheduleThemeChange = useCallback(() => {
-    if (gameState !== 'playing') return;
+    if (gameState !== "playing") return;
 
     // Clear existing timer
     if (themeTimerRef.current) {
@@ -73,7 +73,7 @@ export function useHolidayTheme(gameState) {
 
     // Switch to new theme first
     setCurrentThemeKey(nextTheme);
-    console.log('Theme changed to:', nextTheme);
+    console.log("Theme changed to:", nextTheme);
 
     // Show transition overlay and pause spawning
     setIsTransitioning(true);
@@ -82,7 +82,7 @@ export function useHolidayTheme(gameState) {
     // After 1 second, resume spawning (while overlay is still visible)
     spawnPauseTimerRef.current = setTimeout(() => {
       setShouldPauseSpawning(false);
-      console.log('Resuming food spawning while overlay is visible');
+      console.log("Resuming food spawning while overlay is visible");
     }, 1000);
 
     // After 5 seconds, hide overlay
@@ -94,10 +94,10 @@ export function useHolidayTheme(gameState) {
 
   // Start theme timer when game starts (only on game state change)
   useEffect(() => {
-    if (gameState === 'playing' && !themeTimerRef.current && !isTransitioning) {
+    if (gameState === "playing" && !themeTimerRef.current && !isTransitioning) {
       // Only schedule if no timer is running and not transitioning
       scheduleThemeChange();
-    } else if (gameState !== 'playing') {
+    } else if (gameState !== "playing") {
       // Clear all timers when not playing
       if (themeTimerRef.current) {
         clearTimeout(themeTimerRef.current);
@@ -123,7 +123,7 @@ export function useHolidayTheme(gameState) {
 
   // Reset to random theme when game restarts
   useEffect(() => {
-    if (gameState === 'menu') {
+    if (gameState === "menu") {
       setIsTransitioning(false);
       setShouldPauseSpawning(false);
       // Reset queue with new shuffle and start with first theme
@@ -139,6 +139,6 @@ export function useHolidayTheme(gameState) {
     currentTheme,
     isTransitioning,
     nextThemeKey: getNextTheme(),
-    shouldPauseSpawning // Separate state for spawn control
+    shouldPauseSpawning, // Separate state for spawn control
   };
 }

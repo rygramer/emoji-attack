@@ -1,4 +1,4 @@
-import { GAME_CONFIG } from '../constants/gameConfig';
+import { GAME_CONFIG } from "../constants/gameConfig";
 
 /**
  * AABB (Axis-Aligned Bounding Box) collision detection
@@ -9,7 +9,8 @@ export function checkCollision(teeth, food, gameWidth, gameHeight) {
   // Account for transform: translateX(-50%) which centers the teeth
   const teethCenterX = (teeth.position / 100) * gameWidth;
   const teethX = teethCenterX - GAME_CONFIG.TEETH_SIZE / 2;
-  const teethY = gameHeight - GAME_CONFIG.TEETH_SIZE - GAME_CONFIG.TEETH_BOTTOM_OFFSET;
+  const teethY =
+    gameHeight - GAME_CONFIG.TEETH_SIZE - GAME_CONFIG.TEETH_BOTTOM_OFFSET;
 
   // Create bounding boxes
   const teethBox = {

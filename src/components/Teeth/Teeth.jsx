@@ -1,5 +1,5 @@
-import styles from './Teeth.module.css';
-import { GAME_CONFIG } from '../../constants/gameConfig';
+import styles from "./Teeth.module.css";
+import { GAME_CONFIG } from "../../constants/gameConfig";
 
 export default function Teeth({ position }) {
   return (

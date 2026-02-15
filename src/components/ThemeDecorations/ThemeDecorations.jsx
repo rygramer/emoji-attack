@@ -1,5 +1,5 @@
-import { HOLIDAY_THEMES } from '../../constants/holidayThemes';
-import styles from './ThemeDecorations.module.css';
+import { HOLIDAY_THEMES } from "../../constants/holidayThemes";
+import styles from "./ThemeDecorations.module.css";
 
 export default function ThemeDecorations({ themeKey }) {
   const theme = HOLIDAY_THEMES[themeKey];

@@ -1,4 +1,4 @@
-import styles from './ThemeTransition.module.css';
+import styles from "./ThemeTransition.module.css";
 
 export default function ThemeTransition({ theme, isVisible }) {
   if (!isVisible || !theme) return null;

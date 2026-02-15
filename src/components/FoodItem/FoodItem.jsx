@@ -1,5 +1,5 @@
-import styles from './FoodItem.module.css';
-import { GAME_CONFIG } from '../../constants/gameConfig';
+import styles from "./FoodItem.module.css";
+import { GAME_CONFIG } from "../../constants/gameConfig";
 
 export default function FoodItem({ food }) {
   return (
