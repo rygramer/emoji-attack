@@ -1,0 +1,104 @@
+.section {
+  margin-top: 12px;
+}
+
+.section:first-child {
+  margin-top: 0;
+}
+
+.overlaySection {
+  margin-top: 0;
+}
+
+.sectionTitle {
+  font-size: 12px;
+  font-weight: 700;
+  color: #666;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Variant for overlay/transition (white text) */
+.overlay {
+  color: white;
+  font-size: 16px;
+  letter-spacing: 1px;
+}
+
+.itemsList {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 8px;
+  overflow-x: auto;
+}
+
+/* For overlay variant, center items and allow wrap */
+.overlayList {
+  justify-content: center;
+  flex-wrap: wrap;
+  overflow-x: visible;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 10px;
+  border-radius: 10px;
+}
+
+.catchItem {
+  background: rgba(34, 197, 94, 0.15);
+}
+
+.avoidItem {
+  background: rgba(239, 68, 68, 0.15);
+}
+
+/* Overlay variant - brighter colored backgrounds for dark background */
+.overlayItem.catchItem {
+  background: rgba(34, 197, 94, 0.3);
+  border-radius: 8px;
+}
+
+.overlayItem.avoidItem {
+  background: rgba(239, 68, 68, 0.3);
+  border-radius: 8px;
+}
+
+.itemEmoji {
+  font-size: 18px;
+  line-height: 1;
+}
+
+.itemPoints {
+  font-size: 13px;
+  font-weight: 700;
+  color: #22c55e;
+}
+
+/* Overlay variant - lighter green */
+.overlayPoints {
+  color: #4ade80;
+  font-size: 14px;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .itemEmoji {
+    font-size: 16px;
+  }
+
+  .itemPoints {
+    font-size: 12px;
+  }
+
+  .item {
+    padding: 5px 8px;
+  }
+
+  .overlay {
+    font-size: 14px;
+  }
+}

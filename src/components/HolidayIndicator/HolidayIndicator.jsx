@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import styles from "./HolidayIndicator.module.css";
+import ThemeItems from "../ThemeItems/ThemeItems";
 
 export default function HolidayIndicator({ theme, isTransitioning }) {
   const [isExpanded, setIsExpanded] = useState(true);
@@ -35,31 +36,7 @@ export default function HolidayIndicator({ theme, isTransitioning }) {
 
       {isExpanded && (
         <div className={styles.content}>
-          {/* Catchable items */}
-          <div className={styles.section}>
-            <div className={styles.sectionTitle}>✅ CATCH</div>
-            <div className={styles.itemsList}>
-              {theme.catchable.map((item, index) => (
-                <div key={index} className={styles.item}>
-                  <span className={styles.itemEmoji}>{item.emoji}</span>
-                  <span className={styles.itemPoints}>+{item.points}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Avoidable items */}
-          <div className={styles.section}>
-            <div className={styles.sectionTitle}>❌ AVOID</div>
-            <div className={styles.itemsList}>
-              {theme.avoidable.map((item, index) => (
-                <div key={index} className={styles.item}>
-                  <span className={styles.itemEmoji}>{item.emoji}</span>
-                  <span className={styles.itemLives}>-1 ❤️</span>
-                </div>
-              ))}
-            </div>
-          </div>
+          <ThemeItems theme={theme} variant="default" />
         </div>
       )}
     </div>

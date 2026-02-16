@@ -15,8 +15,6 @@ export const HOLIDAY_THEMES = {
       { emoji: "🍭", name: "Lollipop", points: 15, speed: 1.2 },
       { emoji: "🍬", name: "Candy", points: 10, speed: 1 },
       { emoji: "🍫", name: "Chocolate", points: 12, speed: 1.1 },
-      { emoji: "🍩", name: "Donut", points: 20, speed: 0.9 },
-      { emoji: "🍪", name: "Cookie", points: 10, speed: 1.3 },
       { emoji: "🎃", name: "Pumpkin", points: 25, speed: 0.8 },
     ],
     avoidable: [
@@ -41,9 +39,7 @@ export const HOLIDAY_THEMES = {
       { emoji: "🦃", name: "Turkey", points: 25, speed: 0.8 },
       { emoji: "🥧", name: "Pie", points: 20, speed: 0.9 },
       { emoji: "🌽", name: "Corn", points: 12, speed: 1.1 },
-      { emoji: "🍠", name: "Sweet Potato", points: 15, speed: 1 },
       { emoji: "🥖", name: "Bread", points: 10, speed: 1.2 },
-      { emoji: "🍂", name: "Autumn Leaf", points: 8, speed: 1.3 },
     ],
     avoidable: [
       { emoji: "🍕", name: "Pizza", speed: 1 },
@@ -68,8 +64,6 @@ export const HOLIDAY_THEMES = {
       { emoji: "🎁", name: "Present", points: 20, speed: 0.9 },
       { emoji: "🎄", name: "Tree", points: 15, speed: 1 },
       { emoji: "⛄", name: "Snowman", points: 18, speed: 1.1 },
-      { emoji: "🔔", name: "Bell", points: 12, speed: 1.2 },
-      { emoji: "🎀", name: "Bow", points: 10, speed: 1.3 },
     ],
     avoidable: [
       { emoji: "💣", name: "Bomb", speed: 1.2 },
@@ -94,8 +88,6 @@ export const HOLIDAY_THEMES = {
       { emoji: "🐰", name: "Bunny", points: 25, speed: 0.8 },
       { emoji: "🐣", name: "Chick", points: 18, speed: 1.1 },
       { emoji: "🌷", name: "Tulip", points: 12, speed: 1.2 },
-      { emoji: "🌸", name: "Blossom", points: 10, speed: 1.3 },
-      { emoji: "🧺", name: "Basket", points: 20, speed: 0.9 },
     ],
     avoidable: [
       { emoji: "🐍", name: "Snake", speed: 1.2 },
@@ -120,8 +112,6 @@ export const HOLIDAY_THEMES = {
       { emoji: "🎁", name: "Gift", points: 20, speed: 0.9 },
       { emoji: "🎈", name: "Balloon", points: 10, speed: 1.3 },
       { emoji: "🎉", name: "Confetti", points: 15, speed: 1.1 },
-      { emoji: "🧁", name: "Cupcake", points: 18, speed: 1 },
-      { emoji: "🍰", name: "Cake Slice", points: 12, speed: 1.2 },
     ],
     avoidable: [
       { emoji: "😢", name: "Tears", speed: 1 },
@@ -143,11 +133,9 @@ export const HOLIDAY_THEMES = {
     },
     catchable: [
       { emoji: "💝", name: "Gift Heart", points: 25, speed: 0.8 },
-      { emoji: "💖", name: "Sparkling Heart", points: 20, speed: 0.9 },
       { emoji: "🌹", name: "Rose", points: 18, speed: 1 },
       { emoji: "💐", name: "Bouquet", points: 22, speed: 0.85 },
       { emoji: "🍫", name: "Chocolate", points: 15, speed: 1.1 },
-      { emoji: "💕", name: "Two Hearts", points: 12, speed: 1.2 },
     ],
     avoidable: [
       { emoji: "💔", name: "Broken Heart", speed: 1 },
@@ -171,8 +159,6 @@ export const HOLIDAY_THEMES = {
       { emoji: "🎆", name: "Fireworks", points: 25, speed: 0.8 },
       { emoji: "🗽", name: "Liberty", points: 30, speed: 0.7 },
       { emoji: "🇺🇸", name: "Flag", points: 20, speed: 0.9 },
-      { emoji: "🎇", name: "Sparkler", points: 15, speed: 1.1 },
-      { emoji: "⭐", name: "Star", points: 12, speed: 1.2 },
       { emoji: "🦅", name: "Eagle", points: 22, speed: 0.85 },
     ],
     avoidable: [
@@ -194,11 +180,9 @@ export const HOLIDAY_THEMES = {
       className: "stpatricks",
     },
     catchable: [
-      { emoji: "🍀", name: "Clover", points: 25, speed: 0.8 },
       { emoji: "🌈", name: "Rainbow", points: 30, speed: 0.7 },
       { emoji: "💚", name: "Green Heart", points: 18, speed: 1 },
       { emoji: "🎩", name: "Top Hat", points: 20, speed: 0.9 },
-      { emoji: "🪙", name: "Gold Coin", points: 22, speed: 0.85 },
       { emoji: "☘️", name: "Shamrock", points: 15, speed: 1.1 },
     ],
     avoidable: [
@@ -224,8 +208,6 @@ export const HOLIDAY_THEMES = {
       { emoji: "🌹", name: "Rose", points: 20, speed: 0.9 },
       { emoji: "💝", name: "Gift", points: 22, speed: 0.85 },
       { emoji: "💖", name: "Love", points: 18, speed: 1 },
-      { emoji: "🌺", name: "Hibiscus", points: 15, speed: 1.1 },
-      { emoji: "🎀", name: "Ribbon", points: 12, speed: 1.2 },
     ],
     avoidable: [
       { emoji: "🥀", name: "Wilted Flower", speed: 1 },
@@ -246,10 +228,8 @@ export const HOLIDAY_THEMES = {
       className: "fathersday",
     },
     catchable: [
-      { emoji: "🎁", name: "Gift", points: 25, speed: 0.8 },
       { emoji: "👔", name: "Tie", points: 20, speed: 0.9 },
       { emoji: "⚾", name: "Baseball", points: 18, speed: 1 },
-      { emoji: "🏆", name: "Trophy", points: 22, speed: 0.85 },
       { emoji: "🎣", name: "Fishing", points: 15, speed: 1.1 },
       { emoji: "⛳", name: "Golf", points: 12, speed: 1.2 },
     ],
@@ -275,9 +255,7 @@ export const HOLIDAY_THEMES = {
       { emoji: "🎊", name: "Party Popper", points: 25, speed: 0.8 },
       { emoji: "🎉", name: "Confetti", points: 20, speed: 0.9 },
       { emoji: "🍾", name: "Champagne", points: 22, speed: 0.85 },
-      { emoji: "✨", name: "Sparkles", points: 15, speed: 1.1 },
       { emoji: "🎆", name: "Fireworks", points: 18, speed: 1 },
-      { emoji: "🥳", name: "Party Face", points: 12, speed: 1.2 },
     ],
     avoidable: [
       { emoji: "😴", name: "Sleep", speed: 1 },
@@ -301,9 +279,7 @@ export const HOLIDAY_THEMES = {
       { emoji: "🍿", name: "Popcorn", points: 20, speed: 0.9 },
       { emoji: "🎬", name: "Clapperboard", points: 25, speed: 0.8 },
       { emoji: "🎥", name: "Camera", points: 22, speed: 0.85 },
-      { emoji: "🎞️", name: "Film", points: 18, speed: 1 },
       { emoji: "🎭", name: "Theater Masks", points: 15, speed: 1.1 },
-      { emoji: "🏆", name: "Award", points: 30, speed: 0.7 },
     ],
     avoidable: [
       { emoji: "🤿", name: "Scuba Diver", speed: 1 },
@@ -327,8 +303,6 @@ export const HOLIDAY_THEMES = {
       { emoji: "⚽", name: "Soccer Ball", points: 20, speed: 0.9 },
       { emoji: "🏀", name: "Basketball", points: 20, speed: 0.9 },
       { emoji: "⚾", name: "Baseball", points: 18, speed: 1 },
-      { emoji: "🏆", name: "Trophy", points: 30, speed: 0.7 },
-      { emoji: "🥇", name: "Gold Medal", points: 25, speed: 0.8 },
       { emoji: "⛳", name: "Golf", points: 15, speed: 1.1 },
     ],
     avoidable: [
@@ -353,9 +327,7 @@ export const HOLIDAY_THEMES = {
       { emoji: "📚", name: "Books", points: 20, speed: 0.9 },
       { emoji: "✏️", name: "Pencil", points: 15, speed: 1.1 },
       { emoji: "🎒", name: "Backpack", points: 25, speed: 0.8 },
-      { emoji: "📝", name: "Notes", points: 18, speed: 1 },
       { emoji: "🖍️", name: "Crayons", points: 12, speed: 1.2 },
-      { emoji: "⭐", name: "Gold Star", points: 30, speed: 0.7 },
     ],
     avoidable: [
       { emoji: "❌", name: "Wrong Answer", speed: 1 },
@@ -377,9 +349,7 @@ export const HOLIDAY_THEMES = {
     },
     catchable: [
       { emoji: "🚀", name: "Rocket", points: 25, speed: 0.8 },
-      { emoji: "🌟", name: "Star", points: 18, speed: 1 },
       { emoji: "🪐", name: "Saturn", points: 22, speed: 0.85 },
-      { emoji: "🌙", name: "Moon", points: 20, speed: 0.9 },
       { emoji: "👨‍🚀", name: "Astronaut", points: 30, speed: 0.7 },
       { emoji: "🛸", name: "UFO", points: 28, speed: 0.75 },
     ],
@@ -405,8 +375,6 @@ export const HOLIDAY_THEMES = {
       { emoji: "🦁", name: "Lion", points: 25, speed: 0.8 },
       { emoji: "🐼", name: "Panda", points: 28, speed: 0.75 },
       { emoji: "🐨", name: "Koala", points: 22, speed: 0.85 },
-      { emoji: "🦋", name: "Butterfly", points: 15, speed: 1.1 },
-      { emoji: "🐬", name: "Dolphin", points: 20, speed: 0.9 },
       { emoji: "🦒", name: "Giraffe", points: 18, speed: 1 },
     ],
     avoidable: [
@@ -432,8 +400,6 @@ export const HOLIDAY_THEMES = {
       { emoji: "🎸", name: "Guitar", points: 22, speed: 0.85 },
       { emoji: "🎹", name: "Piano", points: 25, speed: 0.8 },
       { emoji: "🎤", name: "Microphone", points: 20, speed: 0.9 },
-      { emoji: "🎺", name: "Trumpet", points: 18, speed: 1 },
-      { emoji: "🥁", name: "Drums", points: 20, speed: 0.9 },
     ],
     avoidable: [
       { emoji: "🔇", name: "Mute", speed: 1 },
@@ -455,10 +421,8 @@ export const HOLIDAY_THEMES = {
     },
     catchable: [
       { emoji: "🎨", name: "Palette", points: 25, speed: 0.8 },
-      { emoji: "🖌️", name: "Paintbrush", points: 20, speed: 0.9 },
       { emoji: "🖍️", name: "Crayon", points: 15, speed: 1.1 },
       { emoji: "✏️", name: "Pencil", points: 18, speed: 1 },
-      { emoji: "🌈", name: "Rainbow", points: 30, speed: 0.7 },
       { emoji: "🖼️", name: "Frame", points: 22, speed: 0.85 },
     ],
     avoidable: [
@@ -480,9 +444,7 @@ export const HOLIDAY_THEMES = {
       className: "plant",
     },
     catchable: [
-      { emoji: "🌱", name: "Seedling", points: 15, speed: 1.1 },
       { emoji: "🌻", name: "Sunflower", points: 22, speed: 0.85 },
-      { emoji: "🌹", name: "Rose", points: 25, speed: 0.8 },
       { emoji: "🌷", name: "Tulip", points: 20, speed: 0.9 },
       { emoji: "🌺", name: "Hibiscus", points: 18, speed: 1 },
       { emoji: "🌳", name: "Tree", points: 30, speed: 0.7 },
@@ -508,9 +470,7 @@ export const HOLIDAY_THEMES = {
     catchable: [
       { emoji: "🩰", name: "Ballet Shoes", points: 25, speed: 0.8 },
       { emoji: "👗", name: "Tutu", points: 22, speed: 0.85 },
-      { emoji: "👑", name: "Tiara", points: 30, speed: 0.7 },
       { emoji: "🌹", name: "Rose Bouquet", points: 20, speed: 0.9 },
-      { emoji: "🎀", name: "Ribbon", points: 15, speed: 1.1 },
       { emoji: "✨", name: "Sparkle", points: 18, speed: 1 },
     ],
     avoidable: [

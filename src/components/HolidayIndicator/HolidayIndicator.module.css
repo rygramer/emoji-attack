@@ -7,7 +7,7 @@
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
   z-index: 200;
   min-width: 200px;
-  max-width: 280px;
+  max-width: 400px;
   font-family:
     -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", sans-serif;
   transition: transform 0.3s ease;
@@ -107,63 +107,6 @@
   }
 }
 
-.section {
-  margin-top: 12px;
-}
-
-.section:first-child {
-  margin-top: 0;
-}
-
-.sectionTitle {
-  font-size: 12px;
-  font-weight: 700;
-  color: #666;
-  margin-bottom: 8px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.itemsList {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.item {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  background: rgba(0, 0, 0, 0.05);
-  padding: 6px 10px;
-  border-radius: 10px;
-  transition:
-    transform 0.2s,
-    background 0.2s;
-}
-
-.item:hover {
-  transform: translateY(-2px);
-  background: rgba(0, 0, 0, 0.1);
-}
-
-.itemEmoji {
-  font-size: 18px;
-  line-height: 1;
-}
-
-.itemPoints {
-  font-size: 13px;
-  font-weight: 700;
-  color: #22c55e;
-}
-
-.itemLives {
-  font-size: 13px;
-  font-weight: 700;
-  color: #ef4444;
-}
-
 /* Mobile responsive */
 @media (max-width: 768px) {
   .indicator {
@@ -188,18 +131,5 @@
 
   .content {
     padding: 0 12px 10px 12px;
-  }
-
-  .itemEmoji {
-    font-size: 16px;
-  }
-
-  .itemPoints,
-  .itemLives {
-    font-size: 12px;
-  }
-
-  .item {
-    padding: 5px 8px;
   }
 }

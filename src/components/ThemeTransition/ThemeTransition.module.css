@@ -102,55 +102,10 @@
   gap: 30px;
   justify-content: center;
   margin-top: 20px;
-}
-
-.section {
   background: rgba(255, 255, 255, 0.15);
   padding: 15px 20px;
   border-radius: 12px;
-  min-width: 250px;
-}
-
-.sectionTitle {
-  font-size: 16px;
-  font-weight: 700;
-  color: white;
-  margin-bottom: 12px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-
-.itemsList {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  justify-content: center;
-}
-
-.item {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  background: rgba(255, 255, 255, 0.2);
-  padding: 6px 10px;
-  border-radius: 8px;
-}
-
-.itemEmoji {
-  font-size: 20px;
-  line-height: 1;
-}
-
-.itemPoints {
-  font-size: 14px;
-  font-weight: 700;
-  color: #4ade80;
-}
-
-.itemLives {
-  font-size: 14px;
-  font-weight: 700;
-  color: #f87171;
+  min-width: 500px;
 }
 
 /* Mobile responsive */
@@ -168,28 +123,7 @@
     flex-direction: column;
     gap: 15px;
     margin-top: 15px;
-  }
-
-  .section {
     min-width: auto;
     padding: 12px 15px;
-  }
-
-  .sectionTitle {
-    font-size: 14px;
-    margin-bottom: 10px;
-  }
-
-  .item {
-    padding: 5px 8px;
-  }
-
-  .itemEmoji {
-    font-size: 16px;
-  }
-
-  .itemPoints,
-  .itemLives {
-    font-size: 12px;
   }
 }

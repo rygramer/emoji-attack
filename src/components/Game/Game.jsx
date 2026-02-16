@@ -57,7 +57,9 @@ export default function Game() {
 
   // Detect touch device on mount
   useEffect(() => {
-    const touchDevice = window.matchMedia("(hover: none) and (pointer: coarse)").matches;
+    const touchDevice = window.matchMedia(
+      "(hover: none) and (pointer: coarse)",
+    ).matches;
     setIsTouchDevice(touchDevice);
   }, []);
 
@@ -281,7 +283,13 @@ export default function Game() {
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [gameState, startGame, isTouchDevice, mobileHintDismissed, mobileHintExiting]);
+  }, [
+    gameState,
+    startGame,
+    isTouchDevice,
+    mobileHintDismissed,
+    mobileHintExiting,
+  ]);
 
   // Touch/Mouse controls for mobile
   useEffect(() => {
@@ -301,7 +309,12 @@ export default function Game() {
       const percentage = (x / rect.width) * 100;
 
       // Dismiss hint on first movement for non-touch devices
-      if (!isTouchDevice && !mobileHintDismissed && !mobileHintExiting && e.type === "mousemove") {
+      if (
+        !isTouchDevice &&
+        !mobileHintDismissed &&
+        !mobileHintExiting &&
+        e.type === "mousemove"
+      ) {
         setMobileHintExiting(true);
         setTimeout(() => {
           setMobileHintDismissed(true);
@@ -394,7 +407,10 @@ export default function Game() {
             />
           )}
           {!isTransitioning && (
-            <ThemeDecorations key={currentThemeKey} themeKey={currentThemeKey} />
+            <ThemeDecorations
+              key={currentThemeKey}
+              themeKey={currentThemeKey}
+            />
           )}
         </>
       )}

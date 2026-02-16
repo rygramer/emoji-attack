@@ -26,7 +26,6 @@ export default function GameOver({ finalScore, highScore, onRestart }) {
         <button className={styles.restartButton} onClick={onRestart}>
           Play Again
         </button>
-
       </div>
     </div>
   );

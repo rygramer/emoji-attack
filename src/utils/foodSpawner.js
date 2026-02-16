@@ -1,4 +1,3 @@
-import { ALL_FOODS } from "../constants/foodTypes";
 import { GAME_CONFIG } from "../constants/gameConfig";
 import { HOLIDAY_THEMES } from "../constants/holidayThemes";
 
@@ -51,9 +50,6 @@ export function createFood(holidayTheme, difficulty = 0) {
       foodType =
         catchableItems[Math.floor(Math.random() * catchableItems.length)];
     }
-  } else {
-    // Fallback to original foods if no theme provided
-    foodType = ALL_FOODS[Math.floor(Math.random() * ALL_FOODS.length)];
   }
 
   return {

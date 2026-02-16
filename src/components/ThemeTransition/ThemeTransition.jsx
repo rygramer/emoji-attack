@@ -1,4 +1,5 @@
 import styles from "./ThemeTransition.module.css";
+import ThemeItems from "../ThemeItems/ThemeItems";
 
 export default function ThemeTransition({ theme, isVisible }) {
   if (!isVisible || !theme) return null;
@@ -12,29 +13,7 @@ export default function ThemeTransition({ theme, isVisible }) {
         </div>
 
         <div className={styles.itemsContainer}>
-          <div className={styles.section}>
-            <div className={styles.sectionTitle}>✅ CATCH</div>
-            <div className={styles.itemsList}>
-              {theme.catchable.map((item, index) => (
-                <div key={index} className={styles.item}>
-                  <span className={styles.itemEmoji}>{item.emoji}</span>
-                  <span className={styles.itemPoints}>+{item.points}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className={styles.section}>
-            <div className={styles.sectionTitle}>❌ AVOID</div>
-            <div className={styles.itemsList}>
-              {theme.avoidable.map((item, index) => (
-                <div key={index} className={styles.item}>
-                  <span className={styles.itemEmoji}>{item.emoji}</span>
-                  <span className={styles.itemLives}>-1 ❤️</span>
-                </div>
-              ))}
-            </div>
-          </div>
+          <ThemeItems theme={theme} variant="overlay" />
         </div>
       </div>
     </div>

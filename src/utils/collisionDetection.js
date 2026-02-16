@@ -35,4 +35,3 @@ export function checkCollision(teeth, food, gameWidth, gameHeight) {
     teethBox.y + teethBox.height > foodBox.y
   );
 }
-

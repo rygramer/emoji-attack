@@ -184,7 +184,7 @@
   }
 
   /* Hide some emojis on mobile */
-  .floatingEmoji:nth-child(n+40) {
+  .floatingEmoji:nth-child(n + 40) {
     display: none;
   }
 }
