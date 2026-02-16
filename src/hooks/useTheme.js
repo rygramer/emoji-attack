@@ -97,6 +97,11 @@ export function useTheme(gameState) {
         clearTimeout(transitionTimerRef.current);
         transitionTimerRef.current = null;
       }
+      // Immediately end any active transition when paused/stopped
+      if (isTransitioning) {
+        setIsTransitioning(false);
+        setShouldPauseSpawning(false);
+      }
     }
 
     return () => {
