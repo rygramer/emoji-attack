@@ -1,4 +1,4 @@
-.menuBackgrounds {
+.backgrounds {
   position: fixed;
   top: 0;
   left: 0;
@@ -9,7 +9,7 @@
   overflow: hidden;
 }
 
-.floatingEmoji {
+.background {
   position: absolute;
   opacity: 0.15;
   animation-timing-function: linear;
@@ -18,43 +18,43 @@
   transform: translateY(110vh);
 }
 
-/* Multiple animation variations for variety */
-.emoji0 {
+/* 8 animation variations - randomly assigned */
+.animation0 {
   animation-name: floatUp1;
   animation-duration: 15s;
 }
 
-.emoji1 {
+.animation1 {
   animation-name: floatUp2;
   animation-duration: 18s;
 }
 
-.emoji2 {
+.animation2 {
   animation-name: floatUp3;
   animation-duration: 20s;
 }
 
-.emoji3 {
+.animation3 {
   animation-name: floatUp4;
   animation-duration: 16s;
 }
 
-.emoji4 {
+.animation4 {
   animation-name: floatUp5;
   animation-duration: 22s;
 }
 
-.emoji5 {
+.animation5 {
   animation-name: floatUp6;
   animation-duration: 14s;
 }
 
-.emoji6 {
+.animation6 {
   animation-name: floatUp7;
   animation-duration: 19s;
 }
 
-.emoji7 {
+.animation7 {
   animation-name: floatUp8;
   animation-duration: 17s;
 }
@@ -179,12 +179,12 @@
 
 /* Mobile - reduce complexity for performance */
 @media (max-width: 768px) {
-  .floatingEmoji {
+  .background {
     opacity: 0.1;
   }
 
-  /* Hide some emojis on mobile */
-  .floatingEmoji:nth-child(n + 40) {
+  /* Hide some backgrounds on mobile */
+  .background:nth-child(n + 40) {
     display: none;
   }
 }

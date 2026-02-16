@@ -9,8 +9,7 @@ import GameOver from "../GameOver/GameOver";
 import ScorePopup from "../ScorePopup/ScorePopup";
 import ThemeIndicator from "../ThemeIndicator/ThemeIndicator";
 import ThemeTransition from "../ThemeTransition/ThemeTransition";
-import ThemeBackgrounds from "../ThemeBackgrounds/ThemeBackgrounds";
-import MenuBackgrounds from "../MenuBackgrounds/MenuBackgrounds";
+import AnimatedBackgrounds from "../AnimatedBackgrounds/AnimatedBackgrounds";
 import { checkCollision } from "../../utils/collisionDetection";
 import {
   shouldSpawnEmojiToCatch,
@@ -407,7 +406,7 @@ export default function Game() {
             />
           )}
           {!isTransitioning && (
-            <ThemeBackgrounds
+            <AnimatedBackgrounds
               key={currentThemeKey}
               themeKey={currentThemeKey}
             />
@@ -423,7 +422,7 @@ export default function Game() {
       {/* Menu screen */}
       {gameState === "menu" && (
         <div className={styles.menuOverlay}>
-          <MenuBackgrounds />
+          <AnimatedBackgrounds />
           <div className={styles.menuContent}>
             <h1 className={styles.gameTitle}>👧🏼 Matilda's Emoji Attack 👧🏼</h1>
             <p className={styles.gameDescription}>
