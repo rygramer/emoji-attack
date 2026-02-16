@@ -1,13 +1,13 @@
-// Holiday theme definitions for dynamic gameplay
+// Theme definitions for dynamic gameplay
 
-export const HOLIDAY_THEMES = {
+export const THEMES = {
   halloween: {
     name: "Halloween",
     emoji: "🎃",
     description: "Catch the candy!",
     background: "linear-gradient(to bottom, #1a0033 0%, #330066 100%)",
     accentColor: "#ff6b00",
-    decorations: {
+    backgrounds: {
       items: ["👻", "🦇", "👻", "🦇", "👻", "🦇", "🕷️", "🕸️"],
       className: "halloween",
     },
@@ -31,7 +31,7 @@ export const HOLIDAY_THEMES = {
     description: "Catch Thanksgiving treats!",
     background: "linear-gradient(to bottom, #8B4513 0%, #D2691E 100%)",
     accentColor: "#ff8c00",
-    decorations: {
+    backgrounds: {
       items: ["🍂", "🍁", "🍂", "🍁", "🍂", "🍁", "🌾", "🍂"],
       className: "thanksgiving",
     },
@@ -55,7 +55,7 @@ export const HOLIDAY_THEMES = {
     description: "Catch Christmas joy!",
     background: "linear-gradient(to bottom, #004d1a 0%, #00b33c 100%)",
     accentColor: "#ff0000",
-    decorations: {
+    backgrounds: {
       items: ["❄️", "⛄", "❄️", "🎄", "❄️", "⛄", "❄️", "🎄"],
       className: "christmas",
     },
@@ -79,7 +79,7 @@ export const HOLIDAY_THEMES = {
     description: "Catch Easter surprises!",
     background: "linear-gradient(to bottom, #ffb3e6 0%, #ff99cc 100%)",
     accentColor: "#ff66b2",
-    decorations: {
+    backgrounds: {
       items: ["🦋", "🌸", "🦋", "🌷", "🦋", "🌸", "🐣", "🌷"],
       className: "easter",
     },
@@ -103,7 +103,7 @@ export const HOLIDAY_THEMES = {
     description: "Catch party treats!",
     background: "linear-gradient(to bottom, #ff1493 0%, #ff69b4 100%)",
     accentColor: "#ff1493",
-    decorations: {
+    backgrounds: {
       items: ["🎈", "🎉", "🎈", "🎉", "🎈", "🎁", "🎊", "🎂"],
       className: "birthday",
     },
@@ -127,7 +127,7 @@ export const HOLIDAY_THEMES = {
     description: "Catch the love!",
     background: "linear-gradient(to bottom, #ff0066 0%, #ff6699 100%)",
     accentColor: "#ff0066",
-    decorations: {
+    backgrounds: {
       items: ["💝", "💖", "💝", "💕", "🌹", "💐", "💖", "💕"],
       className: "valentines",
     },
@@ -151,7 +151,7 @@ export const HOLIDAY_THEMES = {
     description: "Catch freedom!",
     background: "linear-gradient(to bottom, #002868 0%, #bf0a30 100%)",
     accentColor: "#ffffff",
-    decorations: {
+    backgrounds: {
       items: ["🎆", "🎇", "⭐", "🎆", "🎇", "⭐", "🎆", "🇺🇸"],
       className: "july4th",
     },
@@ -175,7 +175,7 @@ export const HOLIDAY_THEMES = {
     description: "Catch the luck!",
     background: "linear-gradient(to bottom, #006400 0%, #32cd32 100%)",
     accentColor: "#00ff00",
-    decorations: {
+    backgrounds: {
       items: ["🍀", "☘️", "🍀", "🌈", "☘️", "🍀", "🌈", "🪙"],
       className: "stpatricks",
     },
@@ -199,7 +199,7 @@ export const HOLIDAY_THEMES = {
     description: "Celebrate Mom!",
     background: "linear-gradient(to bottom, #ffb6c1 0%, #ffc0cb 100%)",
     accentColor: "#ff69b4",
-    decorations: {
+    backgrounds: {
       items: ["💐", "🌹", "💝", "💖", "🌺", "🌹", "💐", "🎀"],
       className: "mothersday",
     },
@@ -223,7 +223,7 @@ export const HOLIDAY_THEMES = {
     description: "Celebrate Dad!",
     background: "linear-gradient(to bottom, #4169e1 0%, #1e90ff 100%)",
     accentColor: "#0000ff",
-    decorations: {
+    backgrounds: {
       items: ["👔", "🎁", "🏆", "⚾", "👔", "🎁", "🏆", "⛳"],
       className: "fathersday",
     },
@@ -247,7 +247,7 @@ export const HOLIDAY_THEMES = {
     description: "Ring in the new year!",
     background: "linear-gradient(to bottom, #000080 0%, #4b0082 100%)",
     accentColor: "#ffd700",
-    decorations: {
+    backgrounds: {
       items: ["🎊", "🎉", "✨", "🎆", "🎊", "🎉", "✨", "🍾"],
       className: "newyearseve",
     },
@@ -271,7 +271,7 @@ export const HOLIDAY_THEMES = {
     description: "Lights, camera, action!",
     background: "linear-gradient(to bottom, #1a1a2e 0%, #16213e 100%)",
     accentColor: "#e94560",
-    decorations: {
+    backgrounds: {
       items: ["🍿", "🎬", "🎥", "🎞️", "🍿", "🎬", "🎭", "🏆"],
       className: "movie",
     },
@@ -295,7 +295,7 @@ export const HOLIDAY_THEMES = {
     description: "Get in the game!",
     background: "linear-gradient(to bottom, #2d6a4f 0%, #52b788 100%)",
     accentColor: "#ffffff",
-    decorations: {
+    backgrounds: {
       items: ["⚽", "🏀", "⚾", "🏆", "⚽", "🏀", "🥇", "⛳"],
       className: "sport",
     },
@@ -319,7 +319,7 @@ export const HOLIDAY_THEMES = {
     description: "Time to learn!",
     background: "linear-gradient(to bottom, #ffd60a 0%, #ffc300 100%)",
     accentColor: "#003566",
-    decorations: {
+    backgrounds: {
       items: ["📚", "✏️", "📝", "🎒", "📚", "✏️", "⭐", "🖍️"],
       className: "school",
     },
@@ -343,7 +343,7 @@ export const HOLIDAY_THEMES = {
     description: "Explore the cosmos!",
     background: "linear-gradient(to bottom, #0d1b2a 0%, #1b263b 100%)",
     accentColor: "#e0e1dd",
-    decorations: {
+    backgrounds: {
       items: ["🚀", "🌟", "🪐", "🌙", "🚀", "🌟", "👨‍🚀", "🛸"],
       className: "space",
     },
@@ -367,7 +367,7 @@ export const HOLIDAY_THEMES = {
     description: "Visit the zoo!",
     background: "linear-gradient(to bottom, #588157 0%, #a7c957 100%)",
     accentColor: "#bc6c25",
-    decorations: {
+    backgrounds: {
       items: ["🦁", "🦋", "🐼", "🐨", "🦁", "🦋", "🐬", "🦒"],
       className: "animal",
     },
@@ -391,7 +391,7 @@ export const HOLIDAY_THEMES = {
     description: "Feel the rhythm!",
     background: "linear-gradient(to bottom, #7209b7 0%, #b5179e 100%)",
     accentColor: "#f72585",
-    decorations: {
+    backgrounds: {
       items: ["🎵", "🎸", "🎹", "🎤", "🎵", "🎸", "🎺", "🥁"],
       className: "music",
     },
@@ -415,7 +415,7 @@ export const HOLIDAY_THEMES = {
     description: "Create masterpieces!",
     background: "linear-gradient(to bottom, #d62828 0%, #f77f00 100%)",
     accentColor: "#fcbf49",
-    decorations: {
+    backgrounds: {
       items: ["🎨", "🖌️", "🖍️", "✏️", "🎨", "🖌️", "🌈", "🖼️"],
       className: "art",
     },
@@ -439,7 +439,7 @@ export const HOLIDAY_THEMES = {
     description: "Grow your garden!",
     background: "linear-gradient(to bottom, #2d6a4f 0%, #40916c 100%)",
     accentColor: "#b7e4c7",
-    decorations: {
+    backgrounds: {
       items: ["🌱", "🌻", "🌹", "🌷", "🌺", "🌻", "🌹", "🌳"],
       className: "plant",
     },
@@ -463,7 +463,7 @@ export const HOLIDAY_THEMES = {
     description: "Dance with grace!",
     background: "linear-gradient(to bottom, #f0abfc 0%, #e879f9 100%)",
     accentColor: "#fae8ff",
-    decorations: {
+    backgrounds: {
       items: ["🩰", "👗", "👑", "🌹", "🩰", "🎀", "✨", "👗"],
       className: "ballet",
     },

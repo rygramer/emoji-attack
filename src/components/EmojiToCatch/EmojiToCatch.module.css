@@ -1,4 +1,4 @@
-.foodItem {
+.emojiToCatch {
   position: absolute;
   transform: translateX(-50%);
   user-select: none;
@@ -25,7 +25,7 @@
 
 /* Mobile responsive */
 @media (max-width: 768px) {
-  .foodItem {
+  .emojiToCatch {
     font-size: 35px;
   }
 }

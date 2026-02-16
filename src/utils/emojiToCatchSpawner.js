@@ -1,10 +1,10 @@
 import { GAME_CONFIG } from "../constants/gameConfig";
-import { HOLIDAY_THEMES } from "../constants/holidayThemes";
+import { THEMES } from "../constants/themes";
 
 /**
- * Check if it's time to spawn a new food item
+ * Check if it's time to spawn a new emoji to catch
  */
-export function shouldSpawnFood(lastSpawnTime, difficulty) {
+export function shouldSpawnEmojiToCatch(lastSpawnTime, difficulty) {
   const now = Date.now();
   const spawnInterval = Math.max(
     GAME_CONFIG.MIN_SPAWN_INTERVAL,
@@ -15,16 +15,16 @@ export function shouldSpawnFood(lastSpawnTime, difficulty) {
 }
 
 /**
- * Create a new food item with random properties
- * @param {string} holidayTheme - The current holiday theme key (e.g., 'halloween', 'thanksgiving')
+ * Create a new emoji to catch with random properties
+ * @param {string} themeKey - The current theme key (e.g., 'halloween', 'thanksgiving')
  * @param {number} difficulty - Current difficulty level (affects avoidable item probability)
  */
-export function createFood(holidayTheme, difficulty = 0) {
-  let foodType;
+export function createEmojiToCatch(themeKey, difficulty = 0) {
+  let emojiToCatchType;
 
-  if (holidayTheme) {
-    // Use holiday theme foods
-    const theme = HOLIDAY_THEMES[holidayTheme];
+  if (themeKey) {
+    // Use theme emojis to catch
+    const theme = THEMES[themeKey];
 
     // Adjust probability of avoidable items based on difficulty
     // Start at 40% avoidable, increase by 5% per difficulty level, cap at 70%
@@ -39,7 +39,7 @@ export function createFood(holidayTheme, difficulty = 0) {
         ...item,
         type: "unhealthy",
       }));
-      foodType =
+      emojiToCatchType =
         avoidableItems[Math.floor(Math.random() * avoidableItems.length)];
     } else {
       // Select from catchable items
@@ -47,18 +47,18 @@ export function createFood(holidayTheme, difficulty = 0) {
         ...item,
         type: "healthy",
       }));
-      foodType =
+      emojiToCatchType =
         catchableItems[Math.floor(Math.random() * catchableItems.length)];
     }
   }
 
   return {
     id: `${Date.now()}-${Math.random()}`,
-    ...foodType,
+    ...emojiToCatchType,
     x:
-      Math.random() * (GAME_CONFIG.MAX_FOOD_X - GAME_CONFIG.MIN_FOOD_X) +
-      GAME_CONFIG.MIN_FOOD_X,
-    y: -GAME_CONFIG.FOOD_SIZE, // Start above the screen
+      Math.random() * (GAME_CONFIG.MAX_EMOJI_TO_CATCH_X - GAME_CONFIG.MIN_EMOJI_TO_CATCH_X) +
+      GAME_CONFIG.MIN_EMOJI_TO_CATCH_X,
+    y: -GAME_CONFIG.EMOJI_TO_CATCH_SIZE, // Start above the screen
   };
 }
 

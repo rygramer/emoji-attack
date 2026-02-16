@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
-import styles from "./HolidayIndicator.module.css";
+import styles from "./ThemeIndicator.module.css";
 import ThemeItems from "../ThemeItems/ThemeItems";
 
-export default function HolidayIndicator({ theme, isTransitioning }) {
+export default function ThemeIndicator({ theme, isTransitioning }) {
   const [isExpanded, setIsExpanded] = useState(true);
   const [hasAnimatedIn, setHasAnimatedIn] = useState(false);
 

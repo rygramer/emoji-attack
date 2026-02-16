@@ -1,4 +1,4 @@
-.decorations {
+.backgrounds {
   position: fixed;
   top: 0;
   left: 0;
@@ -9,7 +9,7 @@
   overflow: hidden;
 }
 
-.decoration {
+.background {
   position: absolute;
   font-size: 20px;
   opacity: 0.1;
@@ -20,7 +20,7 @@
   transform: translateY(110vh); /* Start off-screen at bottom */
 }
 
-/* Halloween decorations - floating side to side (upwards) */
+/* Halloween backgrounds - floating side to side (upwards) */
 .halloween {
   animation-name: floatHalloween;
 }
@@ -43,7 +43,7 @@
   }
 }
 
-/* Thanksgiving decorations - rising leaves */
+/* Thanksgiving backgrounds - rising leaves */
 .thanksgiving {
   animation-name: riseLeaves;
 }
@@ -66,7 +66,7 @@
   }
 }
 
-/* Christmas decorations - snowrise */
+/* Christmas backgrounds - snowrise */
 .christmas {
   animation-name: snowrise;
 }
@@ -80,7 +80,7 @@
   }
 }
 
-/* Easter decorations - butterfly flutter */
+/* Easter backgrounds - butterfly flutter */
 .easter {
   animation-name: flutter;
 }
@@ -103,7 +103,7 @@
   }
 }
 
-/* Birthday decorations - party float */
+/* Birthday backgrounds - party float */
 .birthday {
   animation-name: partyFloat;
 }
@@ -120,7 +120,7 @@
   }
 }
 
-/* Valentine's decorations - love rise */
+/* Valentine's backgrounds - love rise */
 .valentines {
   animation-name: loveRise;
 }
@@ -143,7 +143,7 @@
   }
 }
 
-/* July 4th decorations - firework rise */
+/* July 4th backgrounds - firework rise */
 .july4th {
   animation-name: fireworkRise;
 }
@@ -160,7 +160,7 @@
   }
 }
 
-/* St. Patrick's decorations - lucky float */
+/* St. Patrick's backgrounds - lucky float */
 .stpatricks {
   animation-name: luckyFloat;
 }
@@ -405,14 +405,14 @@
   animation-duration: 15s;
 }
 
-/* Mobile - smaller and fewer decorations */
+/* Mobile - smaller and fewer backgrounds */
 @media (max-width: 768px) {
-  .decoration {
+  .background {
     font-size: 24px;
     opacity: 0.2;
   }
 
-  /* Hide some decorations on mobile for performance */
+  /* Hide some backgrounds on mobile for performance */
   .item6,
   .item7 {
     display: none;

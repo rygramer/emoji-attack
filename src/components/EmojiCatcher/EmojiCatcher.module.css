@@ -1,4 +1,4 @@
-.teeth {
+.emojiCatcher {
   position: absolute;
   transform: translateX(-50%);
   transition: left 0.1s ease-out;
@@ -9,7 +9,7 @@
   filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.2));
 }
 
-.teethEmoji {
+.emojiCatcherEmoji {
   font-size: 60px;
   animation: bounce 0.5s ease-in-out infinite alternate;
 }
@@ -25,7 +25,7 @@
 
 /* Mobile responsive */
 @media (max-width: 768px) {
-  .teethEmoji {
+  .emojiCatcherEmoji {
     font-size: 50px;
   }
 }

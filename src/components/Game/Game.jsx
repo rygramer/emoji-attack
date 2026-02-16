@@ -1,22 +1,22 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import styles from "./Game.module.css";
 import { useGameLoop } from "../../hooks/useGameLoop";
-import { useHolidayTheme } from "../../hooks/useHolidayTheme";
-import Teeth from "../Teeth/Teeth";
-import FoodItem from "../FoodItem/FoodItem";
+import { useTheme } from "../../hooks/useTheme";
+import EmojiCatcher from "../EmojiCatcher/EmojiCatcher";
+import EmojiToCatch from "../EmojiToCatch/EmojiToCatch";
 import Score from "../Score/Score";
 import GameOver from "../GameOver/GameOver";
 import ScorePopup from "../ScorePopup/ScorePopup";
-import HolidayIndicator from "../HolidayIndicator/HolidayIndicator";
+import ThemeIndicator from "../ThemeIndicator/ThemeIndicator";
 import ThemeTransition from "../ThemeTransition/ThemeTransition";
-import ThemeDecorations from "../ThemeDecorations/ThemeDecorations";
-import MenuDecorations from "../MenuDecorations/MenuDecorations";
+import ThemeBackgrounds from "../ThemeBackgrounds/ThemeBackgrounds";
+import MenuBackgrounds from "../MenuBackgrounds/MenuBackgrounds";
 import { checkCollision } from "../../utils/collisionDetection";
 import {
-  shouldSpawnFood,
-  createFood,
+  shouldSpawnEmojiToCatch,
+  createEmojiToCatch,
   calculateDifficulty,
-} from "../../utils/foodSpawner";
+} from "../../utils/emojiToCatchSpawner";
 import { GAME_CONFIG } from "../../constants/gameConfig";
 
 const STORAGE_KEY = "emoji-attack-high-score";
@@ -30,8 +30,8 @@ export default function Game() {
     const saved = localStorage.getItem(STORAGE_KEY);
     return saved ? parseInt(saved, 10) : 0;
   });
-  const [teethPosition, setTeethPosition] = useState(50); // percentage from left
-  const [foods, setFoods] = useState([]);
+  const [emojiCatcherPosition, setEmojiCatcherPosition] = useState(50); // percentage from left
+  const [emojisToCatch, setEmojisToCatch] = useState([]);
   const [scorePopups, setScorePopups] = useState([]);
   const [showDebug, setShowDebug] = useState(false);
   const [mobileHintDismissed, setMobileHintDismissed] = useState(false);
@@ -39,18 +39,18 @@ export default function Game() {
   const mobileHintTapsRef = useRef({ left: false, right: false });
   const [isTouchDevice, setIsTouchDevice] = useState(false);
 
-  // Holiday theme system
+  // Theme system
   const {
     currentThemeKey,
     currentTheme,
     isTransitioning,
     shouldPauseSpawning,
-  } = useHolidayTheme(gameState);
+  } = useTheme(gameState);
 
   // Refs for game loop
   const lastSpawnTimeRef = useRef(Date.now());
   const gameContainerRef = useRef(null);
-  const collectedFoodsRef = useRef(new Set());
+  const collectedEmojisToCatchRef = useRef(new Set());
   const scoreRef = useRef(0);
   const livesRef = useRef(GAME_CONFIG.STARTING_LIVES);
   const previousThemeRef = useRef(currentThemeKey);
@@ -68,12 +68,12 @@ export default function Game() {
     setGameState("playing");
     setScore(0);
     setLives(GAME_CONFIG.STARTING_LIVES);
-    setTeethPosition(50);
-    setFoods([]);
+    setEmojiCatcherPosition(50);
+    setEmojisToCatch([]);
     scoreRef.current = 0;
     livesRef.current = GAME_CONFIG.STARTING_LIVES;
     lastSpawnTimeRef.current = Date.now();
-    collectedFoodsRef.current.clear();
+    collectedEmojisToCatchRef.current.clear();
   }, []);
 
   // Restart game
@@ -81,33 +81,33 @@ export default function Game() {
     startGame();
   }, [startGame]);
 
-  // Handle food caught
-  const handleFoodCaught = useCallback((food) => {
-    // Prevent double-counting the same food
-    if (collectedFoodsRef.current.has(food.id)) {
+  // Handle emoji to catch caught
+  const handleEmojiToCatchCaught = useCallback((emojiToCatch) => {
+    // Prevent double-counting the same emoji to catch
+    if (collectedEmojisToCatchRef.current.has(emojiToCatch.id)) {
       return;
     }
-    collectedFoodsRef.current.add(food.id);
+    collectedEmojisToCatchRef.current.add(emojiToCatch.id);
 
     // Create visual popup
     const popup = {
       id: `popup-${Date.now()}-${Math.random()}`,
-      x: food.x,
-      y: food.y,
-      points: food.points,
-      type: food.type,
+      x: emojiToCatch.x,
+      y: emojiToCatch.y,
+      points: emojiToCatch.points,
+      type: emojiToCatch.type,
     };
     setScorePopups((prev) => [...prev, popup]);
 
-    // Handle healthy food - increase score
-    if (food.type === "healthy") {
-      const newScore = scoreRef.current + food.points;
+    // Handle healthy emoji to catch - increase score
+    if (emojiToCatch.type === "healthy") {
+      const newScore = scoreRef.current + emojiToCatch.points;
       scoreRef.current = newScore;
       setScore(newScore);
     }
 
-    // Handle unhealthy food - lose a life only (no score penalty)
-    if (food.type === "unhealthy") {
+    // Handle unhealthy emoji to catch - lose a life only (no score penalty)
+    if (emojiToCatch.type === "unhealthy") {
       const newLives = livesRef.current - 1;
       livesRef.current = newLives;
       setLives(newLives);
@@ -117,8 +117,8 @@ export default function Game() {
       }
     }
 
-    // Remove the food
-    setFoods((prev) => prev.filter((f) => f.id !== food.id));
+    // Remove the emoji to catch
+    setEmojisToCatch((prev) => prev.filter((e) => e.id !== emojiToCatch.id));
   }, []);
 
   // Remove completed popups
@@ -140,45 +140,45 @@ export default function Game() {
         console.log(
           "Game loop running - deltaTime:",
           deltaTime,
-          "foods count:",
-          foods.length,
+          "emojis to catch count:",
+          emojisToCatch.length,
         );
       }
 
-      // Update food positions and check collisions
+      // Update emoji to catch positions and check collisions
       // Speed multiplier increases with difficulty (1.0 at start, +0.1 per difficulty level)
       const speedMultiplier = 1 + difficulty * 0.1;
 
-      setFoods((prevFoods) => {
-        const updatedFoods = prevFoods
-          .map((food) => ({
-            ...food,
+      setEmojisToCatch((prevEmojisToCatch) => {
+        const updatedEmojisToCatch = prevEmojisToCatch
+          .map((emojiToCatch) => ({
+            ...emojiToCatch,
             y:
-              food.y +
-              GAME_CONFIG.BASE_FOOD_SPEED *
-                food.speed *
+              emojiToCatch.y +
+              GAME_CONFIG.BASE_EMOJI_TO_CATCH_SPEED *
+                emojiToCatch.speed *
                 speedMultiplier *
                 deltaTime,
           }))
-          .filter((food) => {
-            // Remove foods that are off-screen
-            if (food.y > gameHeight + GAME_CONFIG.FOOD_SIZE) {
+          .filter((emojiToCatch) => {
+            // Remove emojis to catch that are off-screen
+            if (emojiToCatch.y > gameHeight + GAME_CONFIG.EMOJI_TO_CATCH_SIZE) {
               return false;
             }
 
-            // Check collision - always check, not just when near teeth
+            // Check collision - always check, not just when near emoji catcher
             if (
               checkCollision(
-                { position: teethPosition },
-                food,
+                { position: emojiCatcherPosition },
+                emojiToCatch,
                 gameWidth,
                 gameHeight,
               )
             ) {
               try {
-                handleFoodCaught(food);
+                handleEmojiToCatchCaught(emojiToCatch);
               } catch (error) {
-                console.error("ERROR in handleFoodCaught:", error);
+                console.error("ERROR in handleEmojiToCatchCaught:", error);
               }
               return false;
             }
@@ -186,28 +186,28 @@ export default function Game() {
             return true;
           });
 
-        return updatedFoods;
+        return updatedEmojisToCatch;
       });
 
-      // Spawn new food (but not during theme transitions)
+      // Spawn new emoji to catch (but not during theme transitions)
       if (
         !shouldPauseSpawning &&
-        shouldSpawnFood(lastSpawnTimeRef.current, difficulty)
+        shouldSpawnEmojiToCatch(lastSpawnTimeRef.current, difficulty)
       ) {
-        const newFood = createFood(currentThemeKey, difficulty);
-        setFoods((prev) => [...prev, newFood]);
+        const newEmojiToCatch = createEmojiToCatch(currentThemeKey, difficulty);
+        setEmojisToCatch((prev) => [...prev, newEmojiToCatch]);
         lastSpawnTimeRef.current = Date.now();
       }
 
-      // Debug: log food count
+      // Debug: log emoji to catch count
       if (showDebug) {
-        console.log("Active foods:", foods.length, "Teeth pos:", teethPosition);
+        console.log("Active emojis to catch:", emojisToCatch.length, "EmojiCatcher pos:", emojiCatcherPosition);
       }
     },
     [
       score,
-      teethPosition,
-      handleFoodCaught,
+      emojiCatcherPosition,
+      handleEmojiToCatchCaught,
       showDebug,
       shouldPauseSpawning,
       currentThemeKey,
@@ -251,10 +251,10 @@ export default function Game() {
         case "a":
         case "A":
           e.preventDefault();
-          setTeethPosition((prev) =>
+          setEmojiCatcherPosition((prev) =>
             Math.max(
-              GAME_CONFIG.MIN_TEETH_X,
-              prev - GAME_CONFIG.TEETH_MOVE_SPEED,
+              GAME_CONFIG.MIN_EMOJI_CATCHER_X,
+              prev - GAME_CONFIG.EMOJI_CATCHER_MOVE_SPEED,
             ),
           );
           break;
@@ -262,10 +262,10 @@ export default function Game() {
         case "d":
         case "D":
           e.preventDefault();
-          setTeethPosition((prev) =>
+          setEmojiCatcherPosition((prev) =>
             Math.min(
-              GAME_CONFIG.MAX_TEETH_X,
-              prev + GAME_CONFIG.TEETH_MOVE_SPEED,
+              GAME_CONFIG.MAX_EMOJI_CATCHER_X,
+              prev + GAME_CONFIG.EMOJI_CATCHER_MOVE_SPEED,
             ),
           );
           break;
@@ -343,10 +343,10 @@ export default function Game() {
         }
       }
 
-      setTeethPosition(
+      setEmojiCatcherPosition(
         Math.max(
-          GAME_CONFIG.MIN_TEETH_X,
-          Math.min(GAME_CONFIG.MAX_TEETH_X, percentage),
+          GAME_CONFIG.MIN_EMOJI_CATCHER_X,
+          Math.min(GAME_CONFIG.MAX_EMOJI_CATCHER_X, percentage),
         ),
       );
     };
@@ -367,13 +367,13 @@ export default function Game() {
     };
   }, [gameState, mobileHintDismissed, mobileHintExiting, isTouchDevice]);
 
-  // Clear foods when theme changes during gameplay
+  // Clear emojis to catch when theme changes during gameplay
   useEffect(() => {
     if (
       gameState === "playing" &&
       previousThemeRef.current !== currentThemeKey
     ) {
-      setFoods([]);
+      setEmojisToCatch([]);
       previousThemeRef.current = currentThemeKey;
     }
   }, [currentThemeKey, gameState]);
@@ -397,17 +397,17 @@ export default function Game() {
         <Score score={score} lives={lives} highScore={highScore} />
       )}
 
-      {/* Holiday theme UI */}
+      {/* Theme UI */}
       {gameState === "playing" && (
         <>
           {!isTransitioning && (
-            <HolidayIndicator
+            <ThemeIndicator
               theme={currentTheme}
               isTransitioning={isTransitioning}
             />
           )}
           {!isTransitioning && (
-            <ThemeDecorations
+            <ThemeBackgrounds
               key={currentThemeKey}
               themeKey={currentThemeKey}
             />
@@ -423,7 +423,7 @@ export default function Game() {
       {/* Menu screen */}
       {gameState === "menu" && (
         <div className={styles.menuOverlay}>
-          <MenuDecorations />
+          <MenuBackgrounds />
           <div className={styles.menuContent}>
             <h1 className={styles.gameTitle}>👧🏼 Matilda's Emoji Attack 👧🏼</h1>
             <p className={styles.gameDescription}>
@@ -452,7 +452,7 @@ export default function Game() {
       {/* Game elements */}
       {gameState !== "menu" && (
         <>
-          <Teeth position={teethPosition} />
+          <EmojiCatcher position={emojiCatcherPosition} />
           {gameState === "playing" && !mobileHintDismissed && (
             <div
               className={`${styles.mobileHint} ${mobileHintExiting ? styles.mobileHintExiting : ""}`}
@@ -462,8 +462,8 @@ export default function Game() {
                 : "Use your mouse or the ◀ ▶ keys to move"}
             </div>
           )}
-          {foods.map((food) => (
-            <FoodItem key={food.id} food={food} />
+          {emojisToCatch.map((emojiToCatch) => (
+            <EmojiToCatch key={emojiToCatch.id} emojiToCatch={emojiToCatch} />
           ))}
           {scorePopups.map((popup) => (
             <ScorePopup

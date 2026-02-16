@@ -1,12 +1,12 @@
-import { HOLIDAY_THEMES } from "../../constants/holidayThemes";
-import styles from "./MenuDecorations.module.css";
+import { THEMES } from "../../constants/themes";
+import styles from "./MenuBackgrounds.module.css";
 
-export default function MenuDecorations() {
+export default function MenuBackgrounds() {
   // Collect all unique emojis from all themes (both catchable and avoidable)
   const allEmojis = [];
 
-  Object.keys(HOLIDAY_THEMES).forEach((themeKey) => {
-    const theme = HOLIDAY_THEMES[themeKey];
+  Object.keys(THEMES).forEach((themeKey) => {
+    const theme = THEMES[themeKey];
 
     // Add catchable emojis
     theme.catchable.forEach((item) => {
@@ -24,7 +24,7 @@ export default function MenuDecorations() {
   const selectedEmojis = shuffled.slice(0, 80);
 
   return (
-    <div className={styles.menuDecorations}>
+    <div className={styles.menuBackgrounds}>
       {selectedEmojis.map((emoji, index) => (
         <div
           key={index}

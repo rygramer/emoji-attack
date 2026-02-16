@@ -1,8 +1,8 @@
 import { useState, useEffect, useRef, useCallback } from "react";
-import { HOLIDAY_THEMES, THEME_ORDER } from "../constants/holidayThemes";
+import { THEMES, THEME_ORDER } from "../constants/themes";
 
 /**
- * Custom hook for managing holiday theme state and transitions
+ * Custom hook for managing theme state and transitions
  * Automatically switches themes at random intervals during gameplay
  */
 // Shuffle array helper
@@ -15,7 +15,7 @@ function shuffleArray(array) {
   return shuffled;
 }
 
-export function useHolidayTheme(gameState) {
+export function useTheme(gameState) {
   // Initialize with random theme from shuffled queue
   const [initialQueue] = useState(() => shuffleArray(THEME_ORDER));
   const [currentThemeKey, setCurrentThemeKey] = useState(initialQueue[0]);
@@ -27,7 +27,7 @@ export function useHolidayTheme(gameState) {
   const queueIndexRef = useRef(1); // Start at 1 since we used index 0 for initial theme
 
   // Get current theme data
-  const currentTheme = HOLIDAY_THEMES[currentThemeKey];
+  const currentTheme = THEMES[currentThemeKey];
 
   // Get next theme from shuffled queue
   const getNextTheme = useCallback(() => {
